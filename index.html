@@ -264,7 +264,7 @@ h2:hover {
 .desktop {
   position: relative;
   width: 100%;
-  min-height: 260px;
+  min-height: 340px;
 
   margin-top: 12px;
 
@@ -287,11 +287,11 @@ h2:hover {
 }
 
 .folder:hover {
-  transform: scale(1.06) rotate(var(--r, 0deg));
+  transform: scale(1.06);
 }
 
 .folder:active {
-  transform: scale(0.96) rotate(var(--r, 0deg));
+  transform: scale(0.96);
 }
 
 .folder-icon {
@@ -300,12 +300,7 @@ h2:hover {
 
   margin: 0 auto 6px;
 
-  background: linear-gradient(
-    180deg,
-    #7cc2ff 0%,
-    #4a9eff 55%,
-    #2f8bfa 100%
-  );
+  background: #0021ff;
 
   border-radius: 4px 10px 10px 10px;
 
@@ -313,7 +308,7 @@ h2:hover {
 
   box-shadow:
     0 6px 14px rgba(0, 0, 0, 0.25),
-    inset 0 1px 1px rgba(255, 255, 255, 0.5);
+    inset 0 1px 1px rgba(255, 255, 255, 0.25);
 }
 
 .folder-icon::before {
@@ -327,11 +322,7 @@ h2:hover {
   width: 30px;
   height: 12px;
 
-  background: linear-gradient(
-    180deg,
-    #86c8ff,
-    #5aa8ff
-  );
+  background: #0021ff;
 
   border-radius: 4px 6px 0 0;
 }
@@ -1010,72 +1001,20 @@ document
 
 
 /* ================================================= */
-/* ORDNER-POSITIONEN */
+/* ORDNER-RASTER (IN REIHENFOLGE) */
 /* ================================================= */
 
-const positions = [];
+const cols = 4;
+const spacingX = 90 / cols;
+const spacingY = 30;
 
-function randomPos() {
+folders.forEach((folder, i) => {
 
-  let x;
-  let y;
-  let tries = 0;
+  const col = i % cols;
+  const row = Math.floor(i / cols);
 
-  do {
-
-    x =
-      5 +
-      Math.random() * 65;
-
-    y =
-      8 +
-      Math.random() * 55;
-
-    tries++;
-
-  } while (
-
-    positions.some(
-      p =>
-        Math.hypot(
-          p.x - x,
-          p.y - y
-        ) < 22
-    )
-
-    &&
-
-    tries < 40
-
-  );
-
-  positions.push({
-    x,
-    y
-  });
-
-  return {
-    x,
-    y
-  };
-
-}
-
-
-/* ================================================= */
-/* ORDNER ERSTELLEN */
-/* ================================================= */
-
-folders.forEach(folder => {
-
-  const pos =
-    randomPos();
-
-  const rotation =
-    (
-      Math.random() * 6 - 3
-    ).toFixed(1);
-
+  const x = 5 + col * spacingX;
+  const y = 10 + row * spacingY;
 
   const el =
     document.createElement("div");
@@ -1084,19 +1023,10 @@ folders.forEach(folder => {
     "folder";
 
   el.style.left =
-    pos.x + "%";
+    x + "%";
 
   el.style.top =
-    pos.y + "%";
-
-  el.style.setProperty(
-    "--r",
-    rotation + "deg"
-  );
-
-  el.style.transform =
-    `rotate(${rotation}deg)`;
-
+    y + "%";
 
   el.innerHTML = `
 
@@ -1108,12 +1038,10 @@ folders.forEach(folder => {
 
   `;
 
-
   el.addEventListener(
     "click",
     () => openFolder(folder)
   );
-
 
   desktop.appendChild(el);
 
