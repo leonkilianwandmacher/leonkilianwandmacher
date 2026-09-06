@@ -517,12 +517,16 @@ h2:hover {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* ---- maße-feld unter jedem werk ---- */
+/* ---- info-felder unter jedem werk (maße, material, erstellt) ---- */
 
 .masse-wrap {
   margin-top: 20px;
 
   padding: 16px;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 
   background: repeating-linear-gradient(
     90deg,
@@ -536,10 +540,12 @@ h2:hover {
 }
 
 .masse-card {
+  flex: 1 1 120px;
+
   background: #f4f2ef;
   border-radius: 4px;
 
-  padding: 14px 18px;
+  padding: 14px 12px;
 
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 
@@ -560,7 +566,7 @@ h2:hover {
 
 .masse-card .masse-wert {
   font-family: "handschrift leon-kilian";
-  font-size: 20px;
+  font-size: 18px;
   color: #0021ff;
 }
 
@@ -868,11 +874,27 @@ h2:hover {
 
       <div class="masse-wrap" id="masse-wrap">
 
-        <div class="masse-card">
+        <div class="masse-card" id="masse-card">
           <span class="masse-label">maße</span>
           <span
             class="masse-wert"
             id="masse-wert"
+          ></span>
+        </div>
+
+        <div class="masse-card" id="material-card">
+          <span class="masse-label">material</span>
+          <span
+            class="masse-wert"
+            id="material-wert"
+          ></span>
+        </div>
+
+        <div class="masse-card" id="erstellt-card">
+          <span class="masse-label">erstellt</span>
+          <span
+            class="masse-wert"
+            id="erstellt-wert"
           ></span>
         </div>
 
@@ -1253,6 +1275,8 @@ const folders = [
   {
     name: "whydoyouthinkwemet",
     masse: "30 x 40 cm",
+    material: "acryl auf leinwand",
+    erstellt: "2025",
     images: [
       "whydoyouthinkwemet.JPG",
       "whydoyouthinkwemet4.JPG",
@@ -1263,6 +1287,8 @@ const folders = [
   {
     name: "homageancro",
     masse: "30 x 40 cm",
+    material: "acryl auf leinwand",
+    erstellt: "2025",
     images: [
       "bild5.png",
       "DSC00559.jpg",
@@ -1274,6 +1300,8 @@ const folders = [
   {
     name: "vergissmichnichtzuschnell",
     masse: "30 x 40 cm",
+    material: "acryl auf leinwand",
+    erstellt: "2025",
     images: [
       "vergissmichnichtzuschnell.JPG",
       "vergissmichnichtzuschnell2.JPG",
@@ -1284,6 +1312,8 @@ const folders = [
   {
     name: "schönerTag",
     masse: "30 x 40 cm",
+    material: "acryl auf leinwand",
+    erstellt: "2025",
     images: [
       "bild3.png",
       "DSC00592.jpg",
@@ -1294,6 +1324,8 @@ const folders = [
   {
     name: "bild4",
     masse: "30 x 40 cm",
+    material: "acryl auf leinwand",
+    erstellt: "2025",
     images: [
       "vergissmichnichtzuschnell.JPG",
       "vergissmichnichtzuschnell2.JPG",
@@ -1304,6 +1336,8 @@ const folders = [
   {
     name: "notdoingwell",
     masse: "30 x 40 cm",
+    material: "acryl auf leinwand",
+    erstellt: "2025",
     images: [
       "bild6.PNG",
       "DSC00538.jpg",
@@ -1314,6 +1348,8 @@ const folders = [
   {
     name: "feverdream",
     masse: "30 x 40 cm",
+    material: "acryl auf leinwand",
+    erstellt: "2025",
     images: [
       "IMG_0976.heic.jpg"
     ]
@@ -1322,6 +1358,8 @@ const folders = [
   {
     name: "letterfromfelix",
     masse: "30 x 40 cm",
+    material: "acryl auf leinwand",
+    erstellt: "2025",
     images: [
       "IMG_0960.heic.jpg"
     ]
@@ -1330,6 +1368,8 @@ const folders = [
   {
     name: "schäfchenzählen",
     masse: "30 x 40 cm",
+    material: "acryl auf leinwand",
+    erstellt: "2025",
     images: [
       "IMG_0970.heic.jpg"
     ]
@@ -1338,6 +1378,8 @@ const folders = [
   {
     name: "hugme",
     masse: "30 x 40 cm",
+    material: "acryl auf leinwand",
+    erstellt: "2025",
     images: [
       "IMG_0979.heic.jpg"
     ]
@@ -1346,6 +1388,8 @@ const folders = [
   {
     name: "küssenwiruns",
     masse: "30 x 40 cm",
+    material: "acryl auf leinwand",
+    erstellt: "2025",
     images: [
       "IMG_0995.heic.jpg"
     ]
@@ -1354,6 +1398,8 @@ const folders = [
   {
     name: "erinnerunganblau",
     masse: "30 x 40 cm",
+    material: "acryl auf leinwand",
+    erstellt: "2025",
     images: [
       "IMG_0966.heic.jpg"
     ]
@@ -1827,10 +1873,31 @@ function openFolder(folder) {
   });
 
 
-  document.getElementById(
-    "masse-wert"
-  ).textContent =
-    folder.masse || "";
+  const infoFelder = [
+    { wert: "masse-wert", card: "masse-card", daten: folder.masse },
+    { wert: "material-wert", card: "material-card", daten: folder.material },
+    { wert: "erstellt-wert", card: "erstellt-card", daten: folder.erstellt }
+  ];
+
+  let mindestensEinFeld = false;
+
+  infoFelder.forEach(feld => {
+
+    document.getElementById(
+      feld.wert
+    ).textContent =
+      feld.daten || "";
+
+    document.getElementById(
+      feld.card
+    ).style.display =
+      feld.daten ? "block" : "none";
+
+    if (feld.daten) {
+      mindestensEinFeld = true;
+    }
+
+  });
 
   const masseWrap =
     document.getElementById(
@@ -1838,7 +1905,7 @@ function openFolder(folder) {
     );
 
   masseWrap.style.display =
-    folder.masse ? "block" : "none";
+    mindestensEinFeld ? "flex" : "none";
 
 
   ordnerOverlay.classList.add(
