@@ -762,6 +762,59 @@ h2:hover {
 
       </p>
 
+      <p
+        class="subtext"
+        style="font-size:13px; margin-top:16px;"
+      >
+       sneak peak
+      </p>
+
+      <form
+        id="unlock-form"
+        style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;"
+      >
+
+        <input
+          type="password"
+          id="unlock-input"
+          placeholder="passwort"
+          style="
+            flex:1;
+            min-width:140px;
+            padding:8px 10px;
+            border:1px solid rgba(0,33,255,0.3);
+            border-radius:6px;
+            font-family:'schrift website';
+            color:#0021ff;
+            background:#ffffff;
+          "
+        >
+
+        <button
+          type="submit"
+          style="
+            padding:8px 14px;
+            border:1px solid #0021ff;
+            border-radius:6px;
+            background:#0021ff;
+            color:#f4f2ef;
+            font-family:'schrift website';
+            cursor:pointer;
+          "
+        >
+          los
+        </button>
+
+      </form>
+
+      <p
+        id="unlock-error"
+        class="subtext"
+        style="font-size:12px; color:#ec6a5e; display:none; margin-top:8px;"
+      >
+        falsches passwort, versuch's nochmal.
+      </p>
+
     </div>
 
   </div>
@@ -952,7 +1005,27 @@ const imageGrid =
   wieder zurück.
 */
 
-const comingSoonMode = true;
+/*
+  hier das passwort eintragen, das die
+  unfertige seite freischaltet.
+*/
+
+const geheimesPasswort = "meer";
+
+let comingSoonMode = true;
+
+/*
+  wenn schon vorher freigeschaltet
+  (sessionStorage), direkt entsperren.
+*/
+
+if (
+  sessionStorage.getItem("entsperrt") === "ja"
+) {
+
+  comingSoonMode = false;
+
+}
 
 const comingSoonHintergrund =
   "hintergrundseemann.png";
@@ -981,23 +1054,120 @@ const hintergruende = [
 
 ];
 
-const zufallsbild =
+function setzeHintergrund() {
 
-  comingSoonMode
+  const zufallsbild =
 
-    ? comingSoonHintergrund
+    comingSoonMode
 
-    : hintergruende[
-        Math.floor(
-          Math.random() *
-          hintergruende.length
-        )
-      ];
+      ? comingSoonHintergrund
 
-document
-  .querySelector(".menu-center")
-  .style.backgroundImage =
-    `url("${zufallsbild}")`;
+      : hintergruende[
+          Math.floor(
+            Math.random() *
+            hintergruende.length
+          )
+        ];
+
+  document
+    .querySelector(".menu-center")
+    .style.backgroundImage =
+      `url("${zufallsbild}")`;
+
+}
+
+setzeHintergrund();
+
+
+/* ================================================= */
+/* SEITE FREISCHALTEN */
+/* ================================================= */
+
+function seiteFreischalten() {
+
+  comingSoonMode = false;
+
+  sessionStorage.setItem(
+    "entsperrt",
+    "ja"
+  );
+
+  document
+    .querySelectorAll(".tab-hidden")
+    .forEach(el => {
+
+      el.classList.remove(
+        "tab-hidden"
+      );
+
+    });
+
+  setzeHintergrund();
+
+  document
+    .getElementById("comingsoon-overlay")
+    .classList.remove("active");
+
+}
+
+/*
+  beim laden direkt freischalten,
+  falls session schon entsperrt ist.
+*/
+
+if (!comingSoonMode) {
+
+  document
+    .querySelectorAll(".tab-hidden")
+    .forEach(el => {
+
+      el.classList.remove(
+        "tab-hidden"
+      );
+
+    });
+
+}
+
+const unlockForm =
+  document.getElementById(
+    "unlock-form"
+  );
+
+const unlockInput =
+  document.getElementById(
+    "unlock-input"
+  );
+
+const unlockError =
+  document.getElementById(
+    "unlock-error"
+  );
+
+unlockForm.addEventListener(
+  "submit",
+  event => {
+
+    event.preventDefault();
+
+    if (
+      unlockInput.value === geheimesPasswort
+    ) {
+
+      unlockError.style.display =
+        "none";
+
+      seiteFreischalten();
+
+    } else {
+
+      unlockError.style.display =
+        "block";
+
+    }
+
+  }
+);
 
 
 /* ================================================= */
