@@ -440,6 +440,153 @@ h2:hover {
   opacity: 1;
 }
 
+/* ---- werke: foto-raster mit bild + name ---- */
+
+.werk-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  border-top: 1px solid rgba(0, 33, 255, 0.18);
+  border-left: 1px solid rgba(0, 33, 255, 0.18);
+
+  margin-top: 12px;
+}
+
+.werk-cell {
+  border-right: 1px solid rgba(0, 33, 255, 0.18);
+  border-bottom: 1px solid rgba(0, 33, 255, 0.18);
+
+  padding: 8px;
+
+  cursor: pointer;
+  text-align: center;
+
+  transition: opacity 0.18s ease;
+}
+
+.werk-cell:hover {
+  opacity: 0.6;
+}
+
+.werk-cell img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+
+  display: block;
+
+  margin-bottom: 8px;
+}
+
+.werk-cell .werk-name {
+  font-size: 10px;
+  color: #0021ff;
+  font-family: "schrift website";
+
+  word-break: break-word;
+}
+
+@media (max-width: 500px) {
+
+  .werk-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+/* ---- kontakt: gestreifte karte ---- */
+
+#kontakt-overlay .window-body {
+  padding: 24px;
+
+  background: repeating-linear-gradient(
+    90deg,
+    #cfc49a,
+    #cfc49a 22px,
+    #a9c6dc 22px,
+    #a9c6dc 44px
+  );
+}
+
+.kontakt-card {
+  background: #f4f2ef;
+  border-radius: 4px;
+
+  padding: 30px 26px;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.kontakt-card h3 {
+  font-family: "handschrift leon-kilian";
+  font-size: 26px;
+  color: #0021ff;
+
+  margin: 0 0 22px;
+  text-align: center;
+}
+
+.kontakt-field {
+  margin-bottom: 18px;
+}
+
+.kontakt-field label {
+  display: block;
+
+  font-size: 11px;
+  color: #0021ff;
+  opacity: 0.6;
+
+  font-family: "schrift website";
+
+  margin-bottom: 4px;
+}
+
+.kontakt-field input,
+.kontakt-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  border: none;
+  border-bottom: 1px solid rgba(0, 33, 255, 0.35);
+  background: transparent;
+
+  font-family: "schrift website";
+  color: #0021ff;
+  font-size: 14px;
+
+  padding: 4px 0;
+  resize: none;
+}
+
+.kontakt-field input:focus,
+.kontakt-field textarea:focus {
+  outline: none;
+  border-bottom-color: #0021ff;
+}
+
+.kontakt-submit {
+  display: block;
+  margin: 22px auto 4px;
+
+  padding: 10px 26px;
+
+  border: 1px solid #0021ff;
+  border-radius: 20px;
+
+  background: #0021ff;
+  color: #f4f2ef;
+
+  font-family: "schrift website";
+  cursor: pointer;
+}
+
+.kontakt-alt {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 13px;
+}
+
 /* ---- coming soon: andere reiter ausblenden ---- */
 
 .tab-hidden {
@@ -630,7 +777,7 @@ h2:hover {
       </p>
 
       <div
-        class="werk-list"
+        class="werk-grid"
         id="desktop"
       ></div>
 
@@ -703,23 +850,60 @@ h2:hover {
 
     <div class="window-body">
 
-      <p>
-        Mail &lt;3
-        <a href="mailto:hallo@leonkilian.com">
-          hallo@leonkilian.com
-        </a>
-      </p>
+      <div class="kontakt-card">
 
-      <p>
-        DM &lt;3
-        <a
-          href="https://www.instagram.com/leeonkilian/"
-          target="_blank"
-          rel="noopener"
-        >
-          instagram
-        </a>
-      </p>
+        <h3>get in touch!</h3>
+
+        <form id="kontakt-form">
+
+          <div class="kontakt-field">
+            <label for="kontakt-name">name</label>
+            <input
+              type="text"
+              id="kontakt-name"
+              required
+            >
+          </div>
+
+          <div class="kontakt-field">
+            <label for="kontakt-email">email</label>
+            <input
+              type="email"
+              id="kontakt-email"
+              required
+            >
+          </div>
+
+          <div class="kontakt-field">
+            <label for="kontakt-message">message</label>
+            <textarea
+              id="kontakt-message"
+              rows="3"
+              required
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="kontakt-submit"
+          >
+            senden
+          </button>
+
+        </form>
+
+        <p class="kontakt-alt">
+          oder DM &lt;3
+          <a
+            href="https://www.instagram.com/leeonkilian/"
+            target="_blank"
+            rel="noopener"
+          >
+            instagram
+          </a>
+        </p>
+
+      </div>
 
     </div>
 
@@ -1123,29 +1307,30 @@ const roomFolders = [
   {
     name: "Raum2",
     images: [
-      "Raum2.JPG",
-     
+      "Raum2.JPG"
     ]
-  }
+  },
+
   {
     name: "Raum3",
     images: [
       "Raum3.JPG",
       "Raum3.1.JPG"
     ]
-  }
+  },
+
   {
     name: "Raum4",
     images: [
       "Raum4.JPG",
       "Raum4.1.JPG"
     ]
-  }
+  },
+
   {
     name: "Raum5",
     images: [
-      "Raum5.JPG",
-      
+      "Raum5.JPG"
     ]
   }
 
@@ -1455,8 +1640,91 @@ function werkListeErstellen(folderListe, ziel) {
 
 }
 
-werkListeErstellen(folders, desktop);
+function werkGridErstellen(folderListe, ziel) {
+
+  folderListe.forEach(folder => {
+
+    const cell =
+      document.createElement("div");
+
+    cell.className =
+      "werk-cell";
+
+    cell.innerHTML = `
+
+      <img
+        src="${folder.images[0]}"
+        alt="${folder.name}"
+      >
+
+      <span class="werk-name">
+        ${folder.name}
+      </span>
+
+    `;
+
+    cell.addEventListener(
+      "click",
+      () => openFolder(folder)
+    );
+
+    ziel.appendChild(cell);
+
+  });
+
+}
+
+werkGridErstellen(folders, desktop);
 werkListeErstellen(roomFolders, roomsDesktop);
+
+
+/* ================================================= */
+/* KONTAKT-FORMULAR */
+/* ================================================= */
+
+const kontaktForm =
+  document.getElementById(
+    "kontakt-form"
+  );
+
+kontaktForm.addEventListener(
+  "submit",
+  event => {
+
+    event.preventDefault();
+
+    const name =
+      document.getElementById(
+        "kontakt-name"
+      ).value;
+
+    const email =
+      document.getElementById(
+        "kontakt-email"
+      ).value;
+
+    const nachricht =
+      document.getElementById(
+        "kontakt-message"
+      ).value;
+
+    const betreff =
+      encodeURIComponent(
+        "nachricht von " + name
+      );
+
+    const body =
+      encodeURIComponent(
+        nachricht +
+        "\n\nvon: " + name +
+        "\nemail: " + email
+      );
+
+    window.location.href =
+      `mailto:hallo@leonkilian.com?subject=${betreff}&body=${body}`;
+
+  }
+);
 
 
 /* ================================================= */
