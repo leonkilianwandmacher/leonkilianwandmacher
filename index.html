@@ -14,8 +14,8 @@
 }
 
 @font-face {
-  font-family: "Montserrat-Regular";
-  src: url("Montserrat-Regular.ttf");
+  font-family: "schrift website";
+  src: url("schrift website.otf");
 }
 
 @font-face {
@@ -26,7 +26,7 @@
 body {
   color: #0021ff;
   padding: 40px;
-  font-family: "Montserrat-Regular";
+  font-family: "schrift website";
 }
 
 /* ---- überschrift (laufband) ---- */
@@ -169,7 +169,7 @@ h2:hover {
 .subtext {
   font-size: 16px;
   color: #0021ff;
-  font-family: "Montserrat-Regular";
+  font-family: "schrift website";
 }
 
 /* ---- popup-fenster ---- */
@@ -212,6 +212,10 @@ h2:hover {
 
 .overlay.active .window {
   transform: translateY(0) scale(1);
+}
+
+#ordner-detail-overlay .window {
+  width: min(500px, 92vw);
 }
 
 .titlebar {
@@ -363,23 +367,76 @@ h2:hover {
 }
 
 .image-grid {
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(120px, 1fr)
-  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
 
-  gap: 10px;
+  padding: 6px 0 10px;
 }
 
 .image-grid img {
-  width: 100%;
   display: block;
 
-  border-radius: 6px;
+  width: 100%;
+  max-width: 420px;
 
+  height: auto;
+  object-fit: contain;
+
+  background: #ffffff;
+  padding: 10px;
+
+  border-radius: 4px;
+
+  box-shadow: 0 18px 40px rgba(0, 33, 255, 0.18);
+}
+
+/* ---- werke: textliste statt ordner-icons ---- */
+
+.werk-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  padding: 6px 4px 10px;
+}
+
+.werk-item {
+  font-family: "handschrift leon-kilian";
+  font-size: 24px;
+  color: #0021ff;
+
+  cursor: pointer;
+  width: fit-content;
+
+  transition: opacity 0.18s ease;
+}
+
+.werk-item:hover {
+  opacity: 0.55;
+}
+
+.werk-preview {
+  position: fixed;
+
+  width: 150px;
   aspect-ratio: 3/4;
   object-fit: cover;
+
+  border-radius: 6px;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.3);
+
+  pointer-events: none;
+
+  opacity: 0;
+  transition: opacity 0.15s ease;
+
+  z-index: 100;
+}
+
+.werk-preview.active {
+  opacity: 1;
 }
 
 /* ---- coming soon: andere reiter ausblenden ---- */
@@ -427,6 +484,9 @@ h2:hover {
 
 <body>
 
+<img class="werk-preview" id="werk-preview" alt="">
+
+
 <!-- ==================== -->
 
 <!-- LAUFSCHRIFT -->
@@ -463,6 +523,10 @@ h2:hover {
 
   <h2 class="tab-hidden" data-popup="wichtig-overlay">
     wichtig
+  </h2>
+
+  <h2 class="tab-hidden" data-popup="rooms-overlay">
+    rooms
   </h2>
 
   <h2 id="comingsoon-tab" data-popup="comingsoon-overlay">
@@ -565,7 +629,7 @@ h2:hover {
       </p>
 
       <div
-        class="desktop"
+        class="werk-list"
         id="desktop"
       ></div>
 
@@ -640,8 +704,8 @@ h2:hover {
 
       <p>
         Mail &lt;3
-        <a href="mailto:leonkilianwandmacher@gmail.com">
-          leonkilianwandmacher@gmail.com
+        <a href="mailto:hallo@leonkilian.com">
+          hallo@leonkilian.com
         </a>
       </p>
 
@@ -744,7 +808,39 @@ h2:hover {
 
 <!-- ==================== -->
 
-<!-- COMING SOON -->
+<!-- ROOMS -->
+
+<!-- ==================== -->
+
+<div
+  class="overlay"
+  id="rooms-overlay"
+>
+
+  <div class="window">
+
+    <div class="titlebar">
+
+      <div class="dot red"></div>
+      <div class="dot yellow"></div>
+      <div class="dot green"></div>
+
+      <span>rooms</span>
+
+    </div>
+
+    <div class="window-body">
+
+      <div
+        class="werk-list"
+        id="rooms-desktop"
+      ></div>
+
+    </div>
+
+  </div>
+
+</div>
 
 <!-- ==================== -->
 
@@ -808,7 +904,7 @@ h2:hover {
         class="subtext"
         style="font-size:13px; font-weight:bold; color:#f2a0a0;"
       >
-        passwort erforderlich
+        🔒 passwort erforderlich
       </p>
 
       <form
@@ -1005,16 +1101,32 @@ const folders = [
     images: [
       "IMG_0966.heic.jpg"
     ]
+  }
+];
+
+
+/* ================================================= */
+/* DEINE ROOMS */
+/* ================================================= */
+
+const roomFolders = [
+
+  {
+    name: "wohnzimmer",
+    images: [
+      "wohnzimmer1.jpg",
+      "wohnzimmer2.jpg"
+    ]
   },
 
   {
-    name: "rooms",
+    name: "schlafzimmer",
     images: [
-      "rooms1.jpg",
-      "rooms2.jpg",
-      "rooms3.jpg"
+      "schlafzimmer1.jpg",
+      "schlafzimmer2.jpg"
     ]
   }
+
 ];
 
 
@@ -1024,6 +1136,9 @@ const folders = [
 
 const desktop =
   document.getElementById("desktop");
+
+const roomsDesktop =
+  document.getElementById("rooms-desktop");
 
 const ordnerOverlay =
   document.getElementById(
@@ -1061,7 +1176,7 @@ const imageGrid =
   unfertige seite freischaltet.
 */
 
-const geheimesPasswort = "meer";
+const geheimesPasswort = "leonkilian";
 
 let comingSoonMode = true;
 
@@ -1204,48 +1319,122 @@ unlockForm.addEventListener(
 /* ORDNER-RASTER (IN REIHENFOLGE) */
 /* ================================================= */
 
-const cols = 3;
-const spacingX = 90 / cols;
-const spacingY = 20;
+function ordnerRasterErstellen(folderListe, ziel) {
 
-folders.forEach((folder, i) => {
+  const cols = 3;
+  const spacingX = 90 / cols;
+  const spacingY = 20;
 
-  const col = i % cols;
-  const row = Math.floor(i / cols);
+  folderListe.forEach((folder, i) => {
 
-  const x = 5 + col * spacingX;
-  const y = 8 + row * spacingY;
+    const col = i % cols;
+    const row = Math.floor(i / cols);
 
-  const el =
-    document.createElement("div");
+    const x = 5 + col * spacingX;
+    const y = 8 + row * spacingY;
 
-  el.className =
-    "folder";
+    const el =
+      document.createElement("div");
 
-  el.style.left =
-    x + "%";
+    el.className =
+      "folder";
 
-  el.style.top =
-    y + "%";
+    el.style.left =
+      x + "%";
 
-  el.innerHTML = `
+    el.style.top =
+      y + "%";
 
-    <div class="folder-icon"></div>
+    el.innerHTML = `
 
-    <span class="folder-label">
-      ${folder.name}
-    </span>
+      <div class="folder-icon"></div>
 
-  `;
+      <span class="folder-label">
+        ${folder.name}
+      </span>
 
-  el.addEventListener(
-    "click",
-    () => openFolder(folder)
-  );
+    `;
 
-  desktop.appendChild(el);
+    el.addEventListener(
+      "click",
+      () => openFolder(folder)
+    );
 
-});
+    ziel.appendChild(el);
+
+  });
+
+}
+
+function werkListeErstellen(folderListe, ziel) {
+
+  const preview =
+    document.getElementById(
+      "werk-preview"
+    );
+
+  folderListe.forEach(folder => {
+
+    const el =
+      document.createElement("div");
+
+    el.className =
+      "werk-item";
+
+    el.textContent =
+      folder.name;
+
+    el.addEventListener(
+      "mouseenter",
+      () => {
+
+        preview.src =
+          folder.images[0];
+
+        preview.classList.add(
+          "active"
+        );
+
+      }
+    );
+
+    el.addEventListener(
+      "mousemove",
+      event => {
+
+        preview.style.left =
+          (event.clientX + 20) + "px";
+
+        preview.style.top =
+          (event.clientY - 90) + "px";
+
+      }
+    );
+
+    el.addEventListener(
+      "mouseleave",
+      () => {
+
+        preview.classList.remove(
+          "active"
+        );
+
+      }
+    );
+
+    el.addEventListener(
+      "click",
+      () => openFolder(folder)
+    );
+
+    ziel.appendChild(el);
+
+  });
+
+}
+
+werkListeErstellen(folders, desktop);
+werkListeErstellen(roomFolders, roomsDesktop);
 
 
 /* ================================================= */
