@@ -218,6 +218,10 @@ h2:hover {
   width: min(500px, 92vw);
 }
 
+#werke-overlay .window {
+  width: min(680px, 94vw);
+}
+
 .titlebar {
   display: flex;
   align-items: center;
@@ -440,23 +444,81 @@ h2:hover {
   opacity: 1;
 }
 
-/* ---- werke: foto-raster mit bild + name ---- */
+/* ---- werke: banner-bild oben im fenster ---- */
+
+.werke-banner {
+  display: block;
+  width: 100%;
+  height: auto;
+
+  margin-bottom: 18px;
+}
+
+/* ---- werke: foto-reihe im gestreiften rahmen, seitenweise ---- */
+
+.werke-frame {
+  padding: 16px;
+
+  background: repeating-linear-gradient(
+    90deg,
+    #cfc49a,
+    #cfc49a 22px,
+    #a9c6dc 22px,
+    #a9c6dc 44px
+  );
+
+  border-radius: 4px;
+}
+
+.werke-frame-inner {
+  background: #f4f2ef;
+  border-radius: 4px;
+
+  padding: 20px 14px;
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.werke-carousel-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.carousel-arrow {
+  flex-shrink: 0;
+
+  width: 32px;
+  height: 32px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #0021ff;
+  color: #f4f2ef;
+
+  font-size: 16px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.carousel-arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
 
 .werk-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  gap: 10px;
 
-  border-top: 1px solid rgba(0, 33, 255, 0.18);
-  border-left: 1px solid rgba(0, 33, 255, 0.18);
-
-  margin-top: 12px;
+  flex: 1;
+  min-width: 0;
 }
 
 .werk-cell {
-  border-right: 1px solid rgba(0, 33, 255, 0.18);
-  border-bottom: 1px solid rgba(0, 33, 255, 0.18);
-
-  padding: 8px;
+  flex: 1 1 0;
+  min-width: 0;
 
   cursor: pointer;
   text-align: center;
@@ -475,11 +537,50 @@ h2:hover {
 
   display: block;
 
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .werk-cell .werk-name {
-  font-size: 10px;
+  display: block;
+
+  font-size: 11px;
+  font-weight: bold;
+  color: #0021ff;
+  font-family: "schrift website";
+
+  word-break: break-word;
+
+  margin-bottom: 6px;
+}
+
+.werk-cell .werk-info {
+  display: flex;
+  gap: 3px;
+
+  border-top: 1px solid rgba(0, 33, 255, 0.18);
+  padding-top: 5px;
+}
+
+.werk-cell .werk-info div {
+  flex: 1;
+  min-width: 0;
+}
+
+.werk-cell .werk-info .werk-info-label {
+  display: block;
+
+  font-size: 7px;
+  color: #0021ff;
+  opacity: 0.55;
+  font-family: "schrift website";
+
+  text-transform: lowercase;
+}
+
+.werk-cell .werk-info .werk-info-wert {
+  display: block;
+
+  font-size: 8px;
   color: #0021ff;
   font-family: "schrift website";
 
@@ -489,7 +590,11 @@ h2:hover {
 @media (max-width: 500px) {
 
   .werk-grid {
-    grid-template-columns: repeat(2, 1fr);
+    flex-wrap: wrap;
+  }
+
+  .werk-cell {
+    flex: 1 1 calc(50% - 5px);
   }
 
 }
@@ -822,17 +927,40 @@ h2:hover {
 
     <div class="window-body">
 
-      <p
-        class="subtext"
-        style="font-size:14px;"
+      <img
+        class="werke-banner"
+        src="Hintergrund_werke.jpg"
+        alt="making aesthetic out of not doing well"
       >
-        hier findest du einen Überblick über meine werke
-      </p>
 
-      <div
-        class="werk-grid"
-        id="desktop"
-      ></div>
+      <div class="werke-frame">
+
+        <div class="werke-frame-inner">
+
+          <div class="werke-carousel-wrap">
+
+            <button
+              class="carousel-arrow"
+              id="werke-prev"
+              aria-label="zurück"
+            >‹</button>
+
+            <div
+              class="werk-grid"
+              id="desktop"
+            ></div>
+
+            <button
+              class="carousel-arrow"
+              id="werke-next"
+              aria-label="weiter"
+            >›</button>
+
+          </div>
+
+        </div>
+
+      </div>
 
     </div>
 
@@ -1757,41 +1885,123 @@ function werkListeErstellen(folderListe, ziel) {
 
 }
 
-function werkGridErstellen(folderListe, ziel) {
+function werkCarouselErstellen(folderListe, ziel, prevBtn, nextBtn) {
 
-  folderListe.forEach(folder => {
+  const proSeite = 4;
+  let seite = 0;
 
-    const cell =
-      document.createElement("div");
-
-    cell.className =
-      "werk-cell";
-
-    cell.innerHTML = `
-
-      <img
-        src="${folder.images[0]}"
-        alt="${folder.name}"
-      >
-
-      <span class="werk-name">
-        ${folder.name}
-      </span>
-
-    `;
-
-    cell.addEventListener(
-      "click",
-      () => openFolder(folder)
+  const maxSeite =
+    Math.max(
+      0,
+      Math.ceil(folderListe.length / proSeite) - 1
     );
 
-    ziel.appendChild(cell);
+  function seiteRendern() {
 
-  });
+    ziel.innerHTML =
+      "";
+
+    const start =
+      seite * proSeite;
+
+    const sichtbar =
+      folderListe.slice(
+        start,
+        start + proSeite
+      );
+
+    sichtbar.forEach(folder => {
+
+      const cell =
+        document.createElement("div");
+
+      cell.className =
+        "werk-cell";
+
+      cell.innerHTML = `
+
+        <img
+          src="${folder.images[0]}"
+          alt="${folder.name}"
+        >
+
+        <span class="werk-name">
+          ${folder.name}
+        </span>
+
+        <div class="werk-info">
+
+          <div>
+            <span class="werk-info-label">größe</span>
+            <span class="werk-info-wert">${folder.masse || "–"}</span>
+          </div>
+
+          <div>
+            <span class="werk-info-label">material</span>
+            <span class="werk-info-wert">${folder.material || "–"}</span>
+          </div>
+
+          <div>
+            <span class="werk-info-label">datum</span>
+            <span class="werk-info-wert">${folder.erstellt || "–"}</span>
+          </div>
+
+        </div>
+
+      `;
+
+      cell.addEventListener(
+        "click",
+        () => openFolder(folder)
+      );
+
+      ziel.appendChild(cell);
+
+    });
+
+    prevBtn.disabled =
+      seite === 0;
+
+    nextBtn.disabled =
+      seite === maxSeite;
+
+  }
+
+  prevBtn.addEventListener(
+    "click",
+    () => {
+
+      if (seite > 0) {
+        seite--;
+        seiteRendern();
+      }
+
+    }
+  );
+
+  nextBtn.addEventListener(
+    "click",
+    () => {
+
+      if (seite < maxSeite) {
+        seite++;
+        seiteRendern();
+      }
+
+    }
+  );
+
+  seiteRendern();
 
 }
 
-werkGridErstellen(folders, desktop);
+werkCarouselErstellen(
+  folders,
+  desktop,
+  document.getElementById("werke-prev"),
+  document.getElementById("werke-next")
+);
+
 werkListeErstellen(roomFolders, roomsDesktop);
 
 
