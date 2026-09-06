@@ -14,8 +14,8 @@
 }
 
 @font-face {
-  font-family: "Montserrat-Regular";
-  src: url("Montserrat-Regular.ttf");
+  font-family: "schrift website";
+  src: url("schrift website.otf");
 }
 
 @font-face {
@@ -26,7 +26,7 @@
 body {
   color: #0021ff;
   padding: 40px;
-  font-family: "Montserrat-Regular";
+  font-family: "schrift website";
 }
 
 /* ---- überschrift (laufband) ---- */
@@ -169,7 +169,7 @@ h2:hover {
 .subtext {
   font-size: 16px;
   color: #0021ff;
-  font-family: "Montserrat-Regular";
+  font-family: "schrift website";
 }
 
 /* ---- popup-fenster ---- */
@@ -517,6 +517,53 @@ h2:hover {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 }
 
+/* ---- maße-feld unter jedem werk ---- */
+
+.masse-wrap {
+  margin-top: 20px;
+
+  padding: 16px;
+
+  background: repeating-linear-gradient(
+    90deg,
+    #cfc49a,
+    #cfc49a 22px,
+    #a9c6dc 22px,
+    #a9c6dc 44px
+  );
+
+  border-radius: 4px;
+}
+
+.masse-card {
+  background: #f4f2ef;
+  border-radius: 4px;
+
+  padding: 14px 18px;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+  text-align: center;
+}
+
+.masse-card .masse-label {
+  display: block;
+
+  font-size: 11px;
+  color: #0021ff;
+  opacity: 0.6;
+
+  font-family: "schrift website";
+
+  margin-bottom: 4px;
+}
+
+.masse-card .masse-wert {
+  font-family: "handschrift leon-kilian";
+  font-size: 20px;
+  color: #0021ff;
+}
+
 .kontakt-card h3 {
   font-family: "handschrift leon-kilian";
   font-size: 26px;
@@ -818,6 +865,18 @@ h2:hover {
         class="image-grid"
         id="image-grid"
       ></div>
+
+      <div class="masse-wrap" id="masse-wrap">
+
+        <div class="masse-card">
+          <span class="masse-label">maße</span>
+          <span
+            class="masse-wert"
+            id="masse-wert"
+          ></span>
+        </div>
+
+      </div>
 
     </div>
 
@@ -1193,6 +1252,7 @@ document
 const folders = [
   {
     name: "whydoyouthinkwemet",
+    masse: "30 x 40 cm",
     images: [
       "whydoyouthinkwemet.JPG",
       "whydoyouthinkwemet4.JPG",
@@ -1202,6 +1262,7 @@ const folders = [
 
   {
     name: "homageancro",
+    masse: "30 x 40 cm",
     images: [
       "bild5.png",
       "DSC00559.jpg",
@@ -1212,6 +1273,7 @@ const folders = [
 
   {
     name: "vergissmichnichtzuschnell",
+    masse: "30 x 40 cm",
     images: [
       "vergissmichnichtzuschnell.JPG",
       "vergissmichnichtzuschnell2.JPG",
@@ -1221,6 +1283,7 @@ const folders = [
 
   {
     name: "schönerTag",
+    masse: "30 x 40 cm",
     images: [
       "bild3.png",
       "DSC00592.jpg",
@@ -1230,6 +1293,7 @@ const folders = [
 
   {
     name: "bild4",
+    masse: "30 x 40 cm",
     images: [
       "vergissmichnichtzuschnell.JPG",
       "vergissmichnichtzuschnell2.JPG",
@@ -1239,6 +1303,7 @@ const folders = [
 
   {
     name: "notdoingwell",
+    masse: "30 x 40 cm",
     images: [
       "bild6.PNG",
       "DSC00538.jpg",
@@ -1248,6 +1313,7 @@ const folders = [
 
   {
     name: "feverdream",
+    masse: "30 x 40 cm",
     images: [
       "IMG_0976.heic.jpg"
     ]
@@ -1255,6 +1321,7 @@ const folders = [
 
   {
     name: "letterfromfelix",
+    masse: "30 x 40 cm",
     images: [
       "IMG_0960.heic.jpg"
     ]
@@ -1262,6 +1329,7 @@ const folders = [
 
   {
     name: "schäfchenzählen",
+    masse: "30 x 40 cm",
     images: [
       "IMG_0970.heic.jpg"
     ]
@@ -1269,6 +1337,7 @@ const folders = [
 
   {
     name: "hugme",
+    masse: "30 x 40 cm",
     images: [
       "IMG_0979.heic.jpg"
     ]
@@ -1276,6 +1345,7 @@ const folders = [
 
   {
     name: "küssenwiruns",
+    masse: "30 x 40 cm",
     images: [
       "IMG_0995.heic.jpg"
     ]
@@ -1283,6 +1353,7 @@ const folders = [
 
   {
     name: "erinnerunganblau",
+    masse: "30 x 40 cm",
     images: [
       "IMG_0966.heic.jpg"
     ]
@@ -1297,30 +1368,30 @@ const folders = [
 const roomFolders = [
 
   {
-    name: "Raum eins",
+    name: "Raum1",
     images: [
       "Raum1.JPG",
-      "Raum1.1.JPG"
+      "Raum1.1.1.JPG"
     ]
   },
 
   {
-    name: "Raum zwei",
+    name: "Raum2",
     images: [
       "Raum2.JPG"
     ]
   },
 
   {
-    name: "Raum drei",
+    name: "Raum3",
     images: [
-      "Raum3.jpg",
-     
+      "Raum3.JPG",
+      "Raum3.1.JPG"
     ]
   },
 
   {
-    name: "Raum vier",
+    name: "Raum4",
     images: [
       "Raum4.JPG",
       "Raum4.1.JPG"
@@ -1328,7 +1399,7 @@ const roomFolders = [
   },
 
   {
-    name: "Raum fuenf",
+    name: "Raum5",
     images: [
       "Raum5.JPG"
     ]
@@ -1754,6 +1825,20 @@ function openFolder(folder) {
     imageGrid.appendChild(img);
 
   });
+
+
+  document.getElementById(
+    "masse-wert"
+  ).textContent =
+    folder.masse || "";
+
+  const masseWrap =
+    document.getElementById(
+      "masse-wrap"
+    );
+
+  masseWrap.style.display =
+    folder.masse ? "block" : "none";
 
 
   ordnerOverlay.classList.add(
