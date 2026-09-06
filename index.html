@@ -463,6 +463,10 @@ h2:hover {
     coming soon
   </h2>
 
+  <h2 id="passwort-tab" data-popup="passwort-overlay">
+    passwort
+  </h2>
+
 </div>
 
 <!-- ==================== -->
@@ -763,12 +767,42 @@ h2:hover {
 
       </p>
 
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ==================== -->
+
+<!-- PASSWORT -->
+
+<!-- ==================== -->
+
+<div
+  class="overlay"
+  id="passwort-overlay"
+>
+
+  <div class="window">
+
+    <div class="titlebar">
+
+      <div class="dot red"></div>
+      <div class="dot yellow"></div>
+      <div class="dot green"></div>
+
+      <span>passwort</span>
+
+    </div>
+
+    <div class="window-body">
+
       <p
         class="subtext"
-        style="font-size:13px; margin-top:16px;"
+        style="font-size:13px; font-weight:bold;"
       >
-        du hast ein passwort? gib es hier ein, um die
-        unfertige seite trotzdem zu sehen.
+        🔒 passwort erforderlich
       </p>
 
       <form
@@ -779,7 +813,7 @@ h2:hover {
         <input
           type="password"
           id="unlock-input"
-          placeholder="passwort"
+          placeholder="passwort eingeben"
           style="
             flex:1;
             min-width:140px;
@@ -1016,19 +1050,6 @@ const geheimesPasswort = "leonkilian";
 
 let comingSoonMode = true;
 
-/*
-  wenn schon vorher freigeschaltet
-  (sessionStorage), direkt entsperren.
-*/
-
-if (
-  sessionStorage.getItem("entsperrt") === "ja"
-) {
-
-  comingSoonMode = false;
-
-}
-
 const comingSoonHintergrund =
   "hintergrundseemann.png";
 
@@ -1089,11 +1110,6 @@ function seiteFreischalten() {
 
   comingSoonMode = false;
 
-  sessionStorage.setItem(
-    "entsperrt",
-    "ja"
-  );
-
   document
     .querySelectorAll(".tab-hidden")
     .forEach(el => {
@@ -1107,29 +1123,18 @@ function seiteFreischalten() {
   setzeHintergrund();
 
   document
-    .getElementById("comingsoon-overlay")
+    .getElementById("passwort-overlay")
     .classList.remove("active");
 
 }
 
 /*
-  beim laden direkt freischalten,
-  falls session schon entsperrt ist.
+  hinweis: es wird bewusst NICHTS
+  gespeichert (kein sessionStorage,
+  kein localStorage) – dadurch muss
+  nach jedem neuladen der seite das
+  passwort erneut eingegeben werden.
 */
-
-if (!comingSoonMode) {
-
-  document
-    .querySelectorAll(".tab-hidden")
-    .forEach(el => {
-
-      el.classList.remove(
-        "tab-hidden"
-      );
-
-    });
-
-}
 
 const unlockForm =
   document.getElementById(
