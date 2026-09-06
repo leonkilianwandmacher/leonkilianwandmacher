@@ -640,8 +640,8 @@ h2:hover {
 
       <p>
         Mail &lt;3
-        <a href="mailto:leonkilianwandmacher@gmail.com">
-          leonkilianwandmacher@gmail.com
+        <a href="mailto:hallo@leonkilian.com">
+          hallo@leonkilian.com
         </a>
       </p>
 
@@ -808,7 +808,8 @@ h2:hover {
         class="subtext"
         style="font-size:13px; font-weight:bold; color:#f2a0a0;"
       >
-      hinter den kulissen      </p>
+        🔒 passwort erforderlich
+      </p>
 
       <form
         id="unlock-form"
@@ -1004,6 +1005,15 @@ const folders = [
     images: [
       "IMG_0966.heic.jpg"
     ]
+  },
+
+  {
+    name: "rooms",
+    images: [
+      "rooms1.jpg",
+      "rooms2.jpg",
+      "rooms3.jpg"
+    ]
   }
 ];
 
@@ -1047,10 +1057,11 @@ const imageGrid =
 */
 
 /*
-hinter den kulissen
+  hier das passwort eintragen, das die
+  unfertige seite freischaltet.
 */
 
-const geheimesPasswort = "meer";
+const geheimesPasswort = "leonkilian";
 
 let comingSoonMode = true;
 
@@ -1075,7 +1086,7 @@ const hintergruende = [
   "9.png",
   "12.png",
   "13.png",
-  
+  "14.png",
   "16.png",
   "17.png"
 
@@ -1123,6 +1134,14 @@ function seiteFreischalten() {
       );
 
     });
+
+  document
+    .getElementById("comingsoon-tab")
+    .classList.add("tab-hidden");
+
+  document
+    .getElementById("passwort-tab")
+    .classList.add("tab-hidden");
 
   setzeHintergrund();
 
