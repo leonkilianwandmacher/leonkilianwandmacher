@@ -582,14 +582,30 @@ h2:hover {
 
 .werk-cell .werk-info .werk-info-wert {
   display: block;
-
   font-size: 8px;
   color: #0021ff;
   font-family: "schrift website";
-
   word-break: normal;
   overflow-wrap: normal;
-  white-space: nowrap;
+  white-space: normal;
+  line-height: 1.35;
+}
+
+/* Material: Umbruch nur zwischen Wörtern, niemals innerhalb eines Wortes */
+.werk-cell .werk-info .werk-info-wert.material-wert {
+  word-break: normal;
+  overflow-wrap: normal;
+  white-space: normal;
+}
+
+/* Namen der Werke in der Handschrift */
+.werk-cell .werk-name {
+  font-family: "handschrift leon-kilian";
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 1.1;
+  word-break: normal;
+  overflow-wrap: normal;
 }
 
 @media (max-width: 500px) {
@@ -1935,7 +1951,7 @@ function werkCarouselErstellen(folderListe, ziel, prevBtn, nextBtn) {
 
           <div>
             <span class="werk-info-label">material</span>
-            <span class="werk-info-wert">${folder.material || "–"}</span>
+            <span class="werk-info-wert material-wert">${folder.material || "–"}</span>
           </div>
 
           <div>
