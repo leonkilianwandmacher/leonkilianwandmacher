@@ -264,7 +264,7 @@ h2:hover {
 .desktop {
   position: relative;
   width: 100%;
-  min-height: 340px;
+  min-height: 480px;
 
   margin-top: 12px;
 
@@ -298,7 +298,7 @@ h2:hover {
   width: 72px;
   height: 54px;
 
-  margin: 0 auto 6px;
+  margin: 0 auto 8px;
 
   background: #0021ff;
 
@@ -351,14 +351,15 @@ h2:hover {
 
 .folder-label {
   font-size: 12px;
+  font-weight: bold;
 
-  background: rgba(0, 33, 255, 0.85);
-  color: #ffffff;
+  color: #0021ff;
+  background: none;
 
-  padding: 2px 8px;
-  border-radius: 3px;
+  padding: 0;
 
   display: inline-block;
+  white-space: nowrap;
 }
 
 .image-grid {
@@ -405,7 +406,7 @@ h2:hover {
   }
 
   .desktop {
-    min-height: 320px;
+    min-height: 620px;
   }
 
   .menu-center {
@@ -766,7 +767,8 @@ h2:hover {
         class="subtext"
         style="font-size:13px; margin-top:16px;"
       >
-       sneak peak
+        du hast ein passwort? gib es hier ein, um die
+        unfertige seite trotzdem zu sehen.
       </p>
 
       <form
@@ -1010,7 +1012,7 @@ const imageGrid =
   unfertige seite freischaltet.
 */
 
-const geheimesPasswort = "meer";
+const geheimesPasswort = "leonkilian";
 
 let comingSoonMode = true;
 
@@ -1174,9 +1176,9 @@ unlockForm.addEventListener(
 /* ORDNER-RASTER (IN REIHENFOLGE) */
 /* ================================================= */
 
-const cols = 4;
+const cols = 3;
 const spacingX = 90 / cols;
-const spacingY = 30;
+const spacingY = 20;
 
 folders.forEach((folder, i) => {
 
@@ -1184,7 +1186,7 @@ folders.forEach((folder, i) => {
   const row = Math.floor(i / cols);
 
   const x = 5 + col * spacingX;
-  const y = 10 + row * spacingY;
+  const y = 8 + row * spacingY;
 
   const el =
     document.createElement("div");
