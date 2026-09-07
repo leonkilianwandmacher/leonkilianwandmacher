@@ -370,13 +370,20 @@ h2:hover {
   white-space: nowrap;
 }
 
-.image-grid {
+.image-viewer-wrap {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 26px;
+  gap: 8px;
 
   padding: 6px 0 10px;
+}
+
+.image-grid {
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  justify-content: center;
 }
 
 .image-grid img {
@@ -394,6 +401,18 @@ h2:hover {
   border-radius: 4px;
 
   box-shadow: 0 18px 40px rgba(0, 33, 255, 0.18);
+}
+
+.image-counter {
+  text-align: center;
+
+  font-size: 12px;
+  color: #0021ff;
+  opacity: 0.6;
+  font-family: "schrift website";
+
+  margin-top: -4px;
+  margin-bottom: 10px;
 }
 
 /* ---- werke: textliste statt ordner-icons ---- */
@@ -543,19 +562,6 @@ h2:hover {
   margin-bottom: 6px;
 }
 
-.werk-cell .werk-name {
-  display: block;
-
-  font-size: 11px;
-  font-weight: bold;
-  color: #0021ff;
-  font-family: "schrift website";
-
-  word-break: break-word;
-
-  margin-bottom: 6px;
-}
-
 .werk-cell .werk-info {
   display: flex;
   gap: 3px;
@@ -600,12 +606,16 @@ h2:hover {
 
 /* Namen der Werke in der Handschrift */
 .werk-cell .werk-name {
+  display: block;
+
   font-family: "handschrift leon-kilian";
   font-weight: normal;
   font-size: 16px;
   line-height: 1.1;
   word-break: normal;
   overflow-wrap: normal;
+
+  margin-bottom: 6px;
 }
 
 @media (max-width: 500px) {
@@ -1018,10 +1028,28 @@ h2:hover {
 
     <div class="window-body">
 
-      <div
-        class="image-grid"
-        id="image-grid"
-      ></div>
+      <div class="image-viewer-wrap">
+
+        <button
+          class="carousel-arrow"
+          id="bild-prev"
+          aria-label="voriges bild"
+        >‹</button>
+
+        <div
+          class="image-grid"
+          id="image-grid"
+        ></div>
+
+        <button
+          class="carousel-arrow"
+          id="bild-next"
+          aria-label="nächstes bild"
+        >›</button>
+
+      </div>
+
+      <div class="image-counter" id="image-counter"></div>
 
       <div class="masse-wrap" id="masse-wrap">
 
@@ -2068,6 +2096,100 @@ kontaktForm.addEventListener(
 
 
 /* ================================================= */
+/* BILD-NAVIGATION IN DER DETAILANSICHT */
+/* ================================================= */
+
+let aktuellesBildIndex = 0;
+let aktuellerOrdner = null;
+
+const bildPrevBtn =
+  document.getElementById(
+    "bild-prev"
+  );
+
+const bildNextBtn =
+  document.getElementById(
+    "bild-next"
+  );
+
+const imageCounter =
+  document.getElementById(
+    "image-counter"
+  );
+
+function bildRendern() {
+
+  imageGrid.innerHTML =
+    "";
+
+  const src =
+    aktuellerOrdner.images[
+      aktuellesBildIndex
+    ];
+
+  const img =
+    document.createElement("img");
+
+  img.src =
+    src;
+
+  img.alt =
+    aktuellerOrdner.name;
+
+  imageGrid.appendChild(img);
+
+  const anzahl =
+    aktuellerOrdner.images.length;
+
+  imageCounter.textContent =
+    anzahl > 1
+      ? `${aktuellesBildIndex + 1} / ${anzahl}`
+      : "";
+
+  bildPrevBtn.style.visibility =
+    anzahl > 1 ? "visible" : "hidden";
+
+  bildNextBtn.style.visibility =
+    anzahl > 1 ? "visible" : "hidden";
+
+  bildPrevBtn.disabled =
+    aktuellesBildIndex === 0;
+
+  bildNextBtn.disabled =
+    aktuellesBildIndex === anzahl - 1;
+
+}
+
+bildPrevBtn.addEventListener(
+  "click",
+  () => {
+
+    if (aktuellesBildIndex > 0) {
+      aktuellesBildIndex--;
+      bildRendern();
+    }
+
+  }
+);
+
+bildNextBtn.addEventListener(
+  "click",
+  () => {
+
+    if (
+      aktuellerOrdner &&
+      aktuellesBildIndex <
+      aktuellerOrdner.images.length - 1
+    ) {
+      aktuellesBildIndex++;
+      bildRendern();
+    }
+
+  }
+);
+
+
+/* ================================================= */
 /* ORDNER ÖFFNEN */
 /* ================================================= */
 
@@ -2076,24 +2198,10 @@ function openFolder(folder) {
   windowTitle.textContent =
     folder.name;
 
-  imageGrid.innerHTML =
-    "";
+  aktuellerOrdner = folder;
+  aktuellesBildIndex = 0;
 
-
-  folder.images.forEach(src => {
-
-    const img =
-      document.createElement("img");
-
-    img.src =
-      src;
-
-    img.alt =
-      folder.name;
-
-    imageGrid.appendChild(img);
-
-  });
+  bildRendern();
 
 
   const infoFelder = [
