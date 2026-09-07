@@ -1194,269 +1194,213 @@ h2:hover {
     font-size: 40px;
   }
 
-  .window {
-
-    width: 92vw;
-
-    max-width: 92vw;
-
-    max-height: 88vh;
-
-    border-radius: 8px;
+  /* Das gesamte Popup bleibt innerhalb des Handy-Bildschirms. */
+  .overlay {
+    padding: 10px;
+    box-sizing: border-box;
+    align-items: flex-start;
+    justify-content: center;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
-  #werke-overlay .window,
+  .window {
+    width: 88vw;
+    max-width: 88vw;
+    max-height: calc(100vh - 20px);
+    margin: 10px auto;
+    border-radius: 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+
+  /* WERKE: kleiner, damit der rote Schließen-Button immer erreichbar bleibt */
+  #werke-overlay .window {
+    width: 88vw;
+    max-width: 88vw;
+    max-height: calc(100vh - 20px);
+    box-sizing: border-box;
+  }
+
+  #werke-overlay .window-body {
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  /* Detailfenster */
   #ordner-detail-overlay .window {
-
-    width: 94vw;
-
-    max-width: 94vw;
+    width: 90vw;
+    max-width: 90vw;
+    max-height: calc(100vh - 20px);
+    box-sizing: border-box;
   }
 
   .window-body {
-
     padding: 14px;
+    box-sizing: border-box;
   }
 
+  /* Titlebar bleibt beim Scrollen sichtbar */
+  .titlebar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    flex-shrink: 0;
+  }
 
   /* ----------------------------------------- */
   /* WERKE RAHMEN                              */
   /* ----------------------------------------- */
 
   .werke-frame {
-
-    padding: 10px;
+    padding: 7px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .werke-frame-inner {
-
-    padding: 14px 8px;
+    padding: 12px 6px;
+    width: 100%;
+    box-sizing: border-box;
   }
-
 
   /* ----------------------------------------- */
   /* CAROUSEL                                  */
   /* ----------------------------------------- */
 
   .werke-carousel-wrap {
-
-    gap: 6px;
-
+    gap: 5px;
     align-items: center;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .carousel-arrow {
-
-    width: 28px;
-
-    height: 28px;
-
-    font-size: 14px;
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    font-size: 13px;
   }
-
 
   /* ----------------------------------------- */
   /* WERK-GRID                                */
   /* ----------------------------------------- */
 
   .werk-grid {
-
-    /*
-      Zwei Werke nebeneinander auf dem Handy.
-      Dadurch bleiben die Namen und Infos
-      tatsächlich lesbar.
-    */
-
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
-
-    gap: 14px 8px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 7px;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
   }
-
 
   .werk-cell {
-
     min-width: 0;
-
     width: 100%;
+    box-sizing: border-box;
   }
-
 
   /* ----------------------------------------- */
   /* WERKNAME                                  */
   /* ----------------------------------------- */
 
   .werk-cell .werk-name {
-
-    font-size:
-      clamp(11px, 3.4vw, 14px);
-
+    font-size: clamp(10px, 3.2vw, 13px);
     line-height: 1.1;
-
-    /*
-      nur Mindesthöhe.
-      Der Name darf darüber hinaus
-      beliebig weiter wachsen.
-    */
-
     min-height: 2.2em;
-
     height: auto;
-
     white-space: normal;
-
-    /*
-      Lange Namen werden vollständig
-      umgebrochen und NICHT abgeschnitten.
-    */
-
     overflow-wrap: anywhere;
-
     word-break: normal;
-
-    margin:
-      0 0 6px;
+    margin: 0 0 6px;
   }
-
 
   /* ----------------------------------------- */
   /* DÜNNE LINIE                               */
   /* ----------------------------------------- */
 
   .werk-cell .werk-info {
-
-    grid-template-columns:
-      repeat(3, minmax(0, 1fr));
-
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 3px;
-
     width: 100%;
-
+    box-sizing: border-box;
     padding-top: 5px;
-
-    border-top:
-      1px solid rgba(0, 33, 255, 0.18);
+    border-top: 1px solid rgba(0, 33, 255, 0.18);
   }
-
-
-  /* ----------------------------------------- */
-  /* LABELS                                    */
-  /* ----------------------------------------- */
 
   .werk-cell .werk-info .werk-info-label {
-
-    font-size:
-      clamp(6px, 1.8vw, 7px);
-
+    font-size: clamp(5px, 1.7vw, 7px);
     line-height: 1.15;
+    white-space: normal;
   }
 
-
-  /* ----------------------------------------- */
-  /* WERK-INFOS                                */
-  /* ----------------------------------------- */
-
   .werk-cell .werk-info .werk-info-wert {
-
-    font-size:
-      clamp(6px, 2vw, 8px);
-
+    font-size: clamp(5px, 1.9vw, 8px);
     line-height: 1.3;
-
     white-space: normal;
-
     overflow-wrap: normal;
-
     word-break: normal;
-
     hyphens: auto;
   }
 
-
-  /* ----------------------------------------- */
-  /* BESCHREIBUNG                              */
-  /* ----------------------------------------- */
-
   .werk-beschreibung {
-
     font-size: 8px;
-
     line-height: 1.3;
   }
-
 
   /* ----------------------------------------- */
   /* DETAILFENSTER                             */
   /* ----------------------------------------- */
 
   .image-viewer-wrap {
-
     gap: 5px;
   }
 
   .image-grid img {
-
     padding: 7px;
+    max-width: 100%;
   }
 
-
   /* ----------------------------------------- */
-  /* MASSE / MATERIAL / DATUM                   */
+  /* MASSE / MATERIAL / DATUM                  */
   /* ----------------------------------------- */
 
   .masse-wrap {
-
-    grid-template-columns:
-      repeat(3, minmax(0, 1fr));
-
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 6px;
-
     padding: 8px;
   }
 
   .masse-card {
-
-    padding:
-      9px 5px;
-
+    padding: 9px 5px;
     min-width: 0;
   }
 
   .masse-card .masse-label {
-
-    font-size:
-      clamp(6px, 2vw, 8px);
-
+    font-size: clamp(6px, 2vw, 8px);
     line-height: 1.15;
   }
 
   .masse-card .masse-wert {
-
-    font-size:
-      clamp(10px, 3vw, 14px);
-
+    font-size: clamp(9px, 2.8vw, 13px);
     line-height: 1.2;
-
     white-space: normal;
-
     overflow-wrap: normal;
-
     word-break: normal;
   }
-
 
   /* ----------------------------------------- */
   /* ÜBER MICH                                 */
   /* ----------------------------------------- */
 
   .about-body .subtext {
-
     font-size: 8px;
-
     width: 88%;
   }
 
 }
+
 
 </style>
 
