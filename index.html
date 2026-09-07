@@ -498,7 +498,7 @@ h2:hover {
   margin-bottom: 18px;
 }
 
-/* ---- werke: foto-reihe im gestreiften rahmen, seitenweise ---- */
+/* ---- werke: foto-reihe im gestreiften rahmen ---- */
 
 .werke-frame {
   padding: 16px;
@@ -584,6 +584,28 @@ h2:hover {
   margin-bottom: 6px;
 }
 
+/* ---- WERK-NAMEN: LANGE NAMEN UMBRECHEN ---- */
+
+.werk-cell .werk-name {
+  display: block;
+
+  width: 100%;
+  box-sizing: border-box;
+
+  font-family: "handschrift leon-kilian";
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 1.1;
+
+  text-align: center;
+
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: normal;
+
+  margin-bottom: 6px;
+}
+
 .werk-cell .werk-info {
   display: flex;
   gap: 3px;
@@ -630,36 +652,11 @@ h2:hover {
 }
 
 /* Material: Umbruch nur zwischen Wörtern, niemals innerhalb eines Wortes */
+
 .werk-cell .werk-info .werk-info-wert.material-wert {
   word-break: normal;
   overflow-wrap: normal;
   white-space: normal;
-}
-
-/* Namen der Werke in der Handschrift */
-.werk-cell .werk-name {
-  display: block;
-
-  font-family: "handschrift leon-kilian";
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 1.1;
-  word-break: normal;
-  overflow-wrap: normal;
-
-  margin-bottom: 6px;
-}
-
-@media (max-width: 500px) {
-
-  .werk-grid {
-    flex-wrap: wrap;
-  }
-
-  .werk-cell {
-    flex: 1 1 calc(50% - 5px);
-  }
-
 }
 
 /* ---- kontakt: gestreifte karte ---- */
@@ -685,7 +682,7 @@ h2:hover {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* ---- info-felder unter jedem werk (maße, material, erstellt) ---- */
+/* ---- info-felder unter jedem werk ---- */
 
 .masse-wrap {
   margin-top: 20px;
@@ -808,24 +805,78 @@ h2:hover {
   font-size: 13px;
 }
 
-/* ---- coming soon: andere reiter ausblenden ---- */
+/* ================================================= */
+/* RESPONSIVE FENSTER + WERK-NAMEN */
+/* ================================================= */
 
-.tab-hidden {
-  display: none;
+/* Große Bildschirme */
+
+@media (min-width: 1200px) {
+
+  .window {
+    width: min(620px, 70vw);
+    max-height: 82vh;
+  }
+
+  #werke-overlay .window {
+    width: min(900px, 82vw);
+  }
+
+  #ordner-detail-overlay .window {
+    width: min(650px, 70vw);
+  }
+
 }
 
-#comingsoon-tab {
-  font-size: 36px;
-  text-align: center;
-  color: #0021ff;
+/* Laptop / normale Desktop-Bildschirme */
+
+@media (min-width: 801px) and (max-width: 1199px) {
+
+  .window {
+    width: min(560px, 78vw);
+    max-height: 82vh;
+  }
+
+  #werke-overlay .window {
+    width: min(760px, 84vw);
+  }
+
+  #ordner-detail-overlay .window {
+    width: min(580px, 78vw);
+  }
+
 }
 
-#passwort-tab {
-  color: #0021ff;
-  margin-top: 180px;
+/* Tablet */
+
+@media (min-width: 601px) and (max-width: 800px) {
+
+  body {
+    padding: 30px;
+  }
+
+  .window {
+    width: 88vw;
+    max-height: 84vh;
+  }
+
+  #werke-overlay .window,
+  #ordner-detail-overlay .window {
+    width: 92vw;
+  }
+
+  .werk-cell .werk-name {
+    font-size: 14px;
+    line-height: 1.15;
+
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
 }
 
-/* ---- responsive ---- */
+/* Handy */
 
 @media (max-width: 600px) {
 
@@ -837,12 +888,75 @@ h2:hover {
     font-size: 40px;
   }
 
-  .desktop {
-    min-height: 620px;
+  .window {
+    width: 92vw;
+    max-width: 92vw;
+    max-height: 88vh;
+    border-radius: 8px;
   }
 
-  .menu-center {
-    min-height: 40vh;
+  #werke-overlay .window,
+  #ordner-detail-overlay .window {
+    width: 94vw;
+    max-width: 94vw;
+  }
+
+  .window-body {
+    padding: 14px;
+  }
+
+  .werke-frame {
+    padding: 10px;
+  }
+
+  .werke-frame-inner {
+    padding: 14px 8px;
+  }
+
+  .werk-grid {
+    gap: 8px;
+  }
+
+  .werk-cell {
+    min-width: 0;
+  }
+
+  .werk-cell .werk-name {
+    font-size: 13px;
+    line-height: 1.15;
+
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+
+    min-height: 30px;
+  }
+
+  .werk-cell .werk-info .werk-info-wert {
+    font-size: 7px;
+    line-height: 1.3;
+
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .werk-cell .werk-info .werk-info-label {
+    font-size: 6px;
+  }
+
+  .werk-beschreibung {
+    font-size: 8px;
+  }
+
+  .carousel-arrow {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+
+  .about-body .subtext {
+    font-size: 8px;
+    width: 88%;
   }
 
 }
@@ -855,11 +969,8 @@ h2:hover {
 
 <img class="werk-preview" id="werk-preview" alt="">
 
-
 <!-- ==================== -->
-
 <!-- LAUFSCHRIFT -->
-
 <!-- ==================== -->
 
 <div class="marquee-wrap">
@@ -867,51 +978,39 @@ h2:hover {
 </div>
 
 <!-- ==================== -->
-
 <!-- HAUPTMENÜ -->
-
 <!-- ==================== -->
 
 <div class="menu-center">
 
-  <h2 class="tab-hidden" data-popup="about-overlay">
+  <h2 data-popup="about-overlay">
     über mich
   </h2>
 
-  <h2 class="tab-hidden" data-popup="werke-overlay">
+  <h2 data-popup="werke-overlay">
     werke
   </h2>
 
-  <h2 class="tab-hidden" data-popup="kaufen-overlay">
+  <h2 data-popup="kaufen-overlay">
     wie kaufe ich kunst
   </h2>
 
-  <h2 class="tab-hidden" data-popup="rooms-overlay">
+  <h2 data-popup="rooms-overlay">
     rooms
   </h2>
 
-  <h2 class="tab-hidden" data-popup="kontakt-overlay">
+  <h2 data-popup="kontakt-overlay">
     kontakt
   </h2>
 
-  <h2 class="tab-hidden" data-popup="wichtig-overlay">
+  <h2 data-popup="wichtig-overlay">
     wichtig
-  </h2>
-
-  <h2 id="comingsoon-tab" data-popup="comingsoon-overlay">
-    coming soon
-  </h2>
-
-  <h2 id="passwort-tab" data-popup="passwort-overlay">
-    passwort
   </h2>
 
 </div>
 
 <!-- ==================== -->
-
 <!-- ÜBER MICH -->
-
 <!-- ==================== -->
 
 <div class="overlay" id="about-overlay">
@@ -969,9 +1068,7 @@ h2:hover {
 </div>
 
 <!-- ==================== -->
-
 <!-- WERKE -->
-
 <!-- ==================== -->
 
 <div class="overlay" id="werke-overlay">
@@ -1034,9 +1131,7 @@ h2:hover {
 </div>
 
 <!-- ==================== -->
-
 <!-- ORDNER DETAIL -->
-
 <!-- ==================== -->
 
 <div
@@ -1118,9 +1213,7 @@ h2:hover {
 </div>
 
 <!-- ==================== -->
-
 <!-- KONTAKT -->
-
 <!-- ==================== -->
 
 <div
@@ -1150,29 +1243,37 @@ h2:hover {
 
           <div class="kontakt-field">
             <label for="kontakt-name">name</label>
+
             <input
               type="text"
               id="kontakt-name"
               required
             >
+
           </div>
 
           <div class="kontakt-field">
+
             <label for="kontakt-email">email</label>
+
             <input
               type="email"
               id="kontakt-email"
               required
             >
+
           </div>
 
           <div class="kontakt-field">
+
             <label for="kontakt-message">message</label>
+
             <textarea
               id="kontakt-message"
               rows="3"
               required
             ></textarea>
+
           </div>
 
           <button
@@ -1185,7 +1286,9 @@ h2:hover {
         </form>
 
         <p class="kontakt-alt">
+
           oder DM &lt;3
+
           <a
             href="https://www.instagram.com/leeonkilian/"
             target="_blank"
@@ -1193,6 +1296,7 @@ h2:hover {
           >
             instagram
           </a>
+
         </p>
 
       </div>
@@ -1204,9 +1308,7 @@ h2:hover {
 </div>
 
 <!-- ==================== -->
-
 <!-- KUNST KAUFEN -->
-
 <!-- ==================== -->
 
 <div
@@ -1244,9 +1346,7 @@ h2:hover {
 </div>
 
 <!-- ==================== -->
-
 <!-- WICHTIG -->
-
 <!-- ==================== -->
 
 <div
@@ -1284,9 +1384,7 @@ h2:hover {
 </div>
 
 <!-- ==================== -->
-
 <!-- ROOMS -->
-
 <!-- ==================== -->
 
 <div
@@ -1319,136 +1417,11 @@ h2:hover {
 
 </div>
 
-<!-- ==================== -->
-
-<div
-  class="overlay"
-  id="comingsoon-overlay"
->
-
-  <div class="window">
-
-    <div class="titlebar">
-
-      <div class="dot red"></div>
-      <div class="dot yellow"></div>
-      <div class="dot green"></div>
-
-      <span>coming soon</span>
-
-    </div>
-
-    <div class="window-body">
-
-      <p class="subtext" style="color:#f2a0a0;">
-
-        hier entsteht bald etwas neues.
-
-      </p>
-
-    </div>
-
-  </div>
-
-</div>
-
-<!-- ==================== -->
-
-<!-- PASSWORT -->
-
-<!-- ==================== -->
-
-<div
-  class="overlay"
-  id="passwort-overlay"
->
-
-  <div class="window">
-
-    <div class="titlebar">
-
-      <div class="dot red"></div>
-      <div class="dot yellow"></div>
-      <div class="dot green"></div>
-
-      <span>passwort</span>
-
-    </div>
-
-    <div class="window-body">
-
-      <p
-        class="subtext"
-        style="font-size:13px; font-weight:bold; color:#f2a0a0;"
-      >
-        sneak peak
-      </p>
-
-      <form
-        id="unlock-form"
-        style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;"
-      >
-
-        <input
-          type="password"
-          id="unlock-input"
-          placeholder="passwort eingeben"
-          style="
-            flex:1;
-            min-width:140px;
-            padding:8px 10px;
-            border:1px solid rgba(242,160,160,0.6);
-            border-radius:6px;
-            font-family:'schrift website';
-            color:#f2a0a0;
-            background:#ffffff;
-          "
-        >
-
-        <button
-          type="submit"
-          style="
-            padding:8px 14px;
-            border:1px solid #f2a0a0;
-            border-radius:6px;
-            background:#f2a0a0;
-            color:#ffffff;
-            font-family:'schrift website';
-            cursor:pointer;
-          "
-        >
-          los
-        </button>
-
-      </form>
-
-      <p
-        id="unlock-error"
-        class="subtext"
-        style="font-size:12px; color:#ec6a5e; display:none; margin-top:8px;"
-      >
-        falsches passwort, versuch's nochmal.
-      </p>
-
-    </div>
-
-  </div>
-
-</div>
-
 <script>
 
 /* ================================================= */
 /* POP-UP SYSTEM */
 /* ================================================= */
-
-/*
-  Alle Menüeinträge werden hier mit ihren
-  jeweiligen Pop-ups verbunden.
-
-  Dadurch sind die Pop-ups unabhängig
-  vom restlichen Werke-JavaScript.
-*/
 
 document
   .querySelectorAll("[data-popup]")
@@ -1463,6 +1436,7 @@ document
         document.getElementById(popupId);
 
       if (!popup) {
+
         console.error(
           "Popup nicht gefunden:",
           popupId
@@ -1470,13 +1444,6 @@ document
 
         return;
       }
-
-      /*
-        schwebendes vorschaubild (hover
-        über werke/rooms) sicherheitshalber
-        verstecken, falls es z.b. bei touch-
-        bedienung hängen geblieben ist.
-      */
 
       const preview =
         document.getElementById(
@@ -1503,6 +1470,7 @@ document
 /* ================================================= */
 
 const folders = [
+
   {
     name: "whydoyouthinkwemet",
     masse: "90 x 120 cm",
@@ -1529,8 +1497,6 @@ const folders = [
     ]
   },
 
-  
-
   {
     name: "schönerTag",
     masse: "120 x 90 cm",
@@ -1543,6 +1509,7 @@ const folders = [
       "DSC00589.jpg"
     ]
   },
+
   {
     name: "snoopy",
     masse: "100 x 120 cm",
@@ -1550,8 +1517,7 @@ const folders = [
     erstellt: "2024",
     beschreibung: "verkauft",
     images: [
-      "snoopy.jpg",
-      
+      "snoopy.jpg"
     ]
   },
 
@@ -1638,6 +1604,7 @@ const folders = [
       "IMG_0966.heic.jpg"
     ]
   }
+
 ];
 
 
@@ -1665,8 +1632,7 @@ const roomFolders = [
   {
     name: "Raum drei",
     images: [
-      "Raum3.jpg",
-     
+      "Raum3.jpg"
     ]
   },
 
@@ -1684,7 +1650,8 @@ const roomFolders = [
       "Raum5.JPG"
     ]
   },
- {
+
+  {
     name: "Raum sechs",
     images: [
       "Bildflur2.jpg",
@@ -1692,18 +1659,21 @@ const roomFolders = [
       "Bildflur1.jpg"
     ]
   },
-   {
+
+  {
     name: "Raum sieben",
     images: [
       "Raum7.jpg"
     ]
   },
-     {
+
+  {
     name: "Raum acht",
     images: [
       "IMG_2808.jpg"
     ]
-  },
+  }
+
 ];
 
 
@@ -1734,28 +1704,16 @@ const imageGrid =
 
 
 /* ================================================= */
-/* COMING SOON MODUS */
+/* ÖFFENTLICHE WEBSITE */
 /* ================================================= */
 
 /*
-  Solange dieser Wert auf true steht,
-  wird nur EIN festes Hintergrundbild
-  gezeigt (für die coming-soon-Phase).
-
-  Wenn du die Reiter später wieder
-  einblendest, einfach auf false setzen –
-  dann kommen die wechselnden Hintergründe
-  wieder zurück.
+  Die Website ist jetzt öffentlich.
+  Deshalb gibt es keinen Passwortschutz
+  und keinen Coming-Soon-Modus mehr.
 */
 
-/*
-  hier das passwort eintragen, das die
-  unfertige seite freischaltet.
-*/
-
-const geheimesPasswort = "meer";
-
-let comingSoonMode = true;
+let comingSoonMode = false;
 
 const comingSoonHintergrund =
   "hintergrundseemann.png";
@@ -1830,13 +1788,6 @@ setzeHintergrund();
 /* FENSTER SCHLIESSEN + HINTERGRUND WECHSELN */
 /* ================================================= */
 
-/*
-  wird beim schließen eines fensters
-  aufgerufen, damit im hauptmenü
-  danach ein neues zufälliges
-  hintergrundbild erscheint.
-*/
-
 function schliesseOverlay(overlay) {
 
   overlay.classList.remove(
@@ -1849,90 +1800,7 @@ function schliesseOverlay(overlay) {
 
 
 /* ================================================= */
-/* SEITE FREISCHALTEN */
-/* ================================================= */
-
-function seiteFreischalten() {
-
-  comingSoonMode = false;
-
-  document
-    .querySelectorAll(".tab-hidden")
-    .forEach(el => {
-
-      el.classList.remove(
-        "tab-hidden"
-      );
-
-    });
-
-  document
-    .getElementById("comingsoon-tab")
-    .classList.add("tab-hidden");
-
-  document
-    .getElementById("passwort-tab")
-    .classList.add("tab-hidden");
-
-  setzeHintergrund();
-
-  document
-    .getElementById("passwort-overlay")
-    .classList.remove("active");
-
-}
-
-/*
-  hinweis: es wird bewusst NICHTS
-  gespeichert (kein sessionStorage,
-  kein localStorage) – dadurch muss
-  nach jedem neuladen der seite das
-  passwort erneut eingegeben werden.
-*/
-
-const unlockForm =
-  document.getElementById(
-    "unlock-form"
-  );
-
-const unlockInput =
-  document.getElementById(
-    "unlock-input"
-  );
-
-const unlockError =
-  document.getElementById(
-    "unlock-error"
-  );
-
-unlockForm.addEventListener(
-  "submit",
-  event => {
-
-    event.preventDefault();
-
-    if (
-      unlockInput.value === geheimesPasswort
-    ) {
-
-      unlockError.style.display =
-        "none";
-
-      seiteFreischalten();
-
-    } else {
-
-      unlockError.style.display =
-        "block";
-
-    }
-
-  }
-);
-
-
-/* ================================================= */
-/* ORDNER-RASTER (IN REIHENFOLGE) */
+/* ORDNER-RASTER */
 /* ================================================= */
 
 function ordnerRasterErstellen(folderListe, ziel) {
@@ -1981,6 +1849,7 @@ function ordnerRasterErstellen(folderListe, ziel) {
   });
 
 }
+
 
 function werkListeErstellen(folderListe, ziel, herkunftId) {
 
@@ -2049,7 +1918,17 @@ function werkListeErstellen(folderListe, ziel, herkunftId) {
 
 }
 
-function werkCarouselErstellen(folderListe, ziel, prevBtn, nextBtn) {
+
+/* ================================================= */
+/* WERKE CAROUSEL */
+/* ================================================= */
+
+function werkCarouselErstellen(
+  folderListe,
+  ziel,
+  prevBtn,
+  nextBtn
+) {
 
   const proSeite = 4;
   let seite = 0;
@@ -2057,7 +1936,9 @@ function werkCarouselErstellen(folderListe, ziel, prevBtn, nextBtn) {
   const maxSeite =
     Math.max(
       0,
-      Math.ceil(folderListe.length / proSeite) - 1
+      Math.ceil(
+        folderListe.length / proSeite
+      ) - 1
     );
 
   function seiteRendern() {
@@ -2096,33 +1977,59 @@ function werkCarouselErstellen(folderListe, ziel, prevBtn, nextBtn) {
         <div class="werk-info">
 
           <div>
-            <span class="werk-info-label">größe</span>
-            <span class="werk-info-wert">${folder.masse || "–"}</span>
+            <span class="werk-info-label">
+              größe
+            </span>
+
+            <span class="werk-info-wert">
+              ${folder.masse || "–"}
+            </span>
           </div>
 
           <div>
-            <span class="werk-info-label">material</span>
-            <span class="werk-info-wert material-wert">${folder.material || "–"}</span>
+
+            <span class="werk-info-label">
+              material
+            </span>
+
+            <span class="werk-info-wert material-wert">
+              ${folder.material || "–"}
+            </span>
+
           </div>
 
           <div>
-            <span class="werk-info-label">datum</span>
-            <span class="werk-info-wert">${folder.erstellt || "–"}</span>
+
+            <span class="werk-info-label">
+              datum
+            </span>
+
+            <span class="werk-info-wert">
+              ${folder.erstellt || "–"}
+            </span>
+
           </div>
 
         </div>
 
-        ${folder.beschreibung ? `
-          <div class="werk-beschreibung">
-            ${folder.beschreibung}
-          </div>
-        ` : ""}
+        ${
+          folder.beschreibung
+          ? `
+            <div class="werk-beschreibung">
+              ${folder.beschreibung}
+            </div>
+          `
+          : ""
+        }
 
       `;
 
       cell.addEventListener(
         "click",
-        () => openFolder(folder, "werke-overlay")
+        () => openFolder(
+          folder,
+          "werke-overlay"
+        )
       );
 
       ziel.appendChild(cell);
@@ -2142,8 +2049,11 @@ function werkCarouselErstellen(folderListe, ziel, prevBtn, nextBtn) {
     () => {
 
       if (seite > 0) {
+
         seite--;
+
         seiteRendern();
+
       }
 
     }
@@ -2154,8 +2064,11 @@ function werkCarouselErstellen(folderListe, ziel, prevBtn, nextBtn) {
     () => {
 
       if (seite < maxSeite) {
+
         seite++;
+
         seiteRendern();
+
       }
 
     }
@@ -2165,6 +2078,7 @@ function werkCarouselErstellen(folderListe, ziel, prevBtn, nextBtn) {
 
 }
 
+
 werkCarouselErstellen(
   folders,
   desktop,
@@ -2172,7 +2086,12 @@ werkCarouselErstellen(
   document.getElementById("werke-next")
 );
 
-werkListeErstellen(roomFolders, roomsDesktop, "rooms-overlay");
+
+werkListeErstellen(
+  roomFolders,
+  roomsDesktop,
+  "rooms-overlay"
+);
 
 
 /* ================================================= */
@@ -2225,7 +2144,7 @@ kontaktForm.addEventListener(
 
 
 /* ================================================= */
-/* BILD-NAVIGATION IN DER DETAILANSICHT */
+/* BILD-NAVIGATION */
 /* ================================================= */
 
 let aktuellesBildIndex = 0;
@@ -2245,6 +2164,7 @@ const imageCounter =
   document.getElementById(
     "image-counter"
   );
+
 
 function bildRendern() {
 
@@ -2276,10 +2196,14 @@ function bildRendern() {
       : "";
 
   bildPrevBtn.style.visibility =
-    anzahl > 1 ? "visible" : "hidden";
+    anzahl > 1
+      ? "visible"
+      : "hidden";
 
   bildNextBtn.style.visibility =
-    anzahl > 1 ? "visible" : "hidden";
+    anzahl > 1
+      ? "visible"
+      : "hidden";
 
   bildPrevBtn.disabled =
     aktuellesBildIndex === 0;
@@ -2289,17 +2213,22 @@ function bildRendern() {
 
 }
 
+
 bildPrevBtn.addEventListener(
   "click",
   () => {
 
     if (aktuellesBildIndex > 0) {
+
       aktuellesBildIndex--;
+
       bildRendern();
+
     }
 
   }
 );
+
 
 bildNextBtn.addEventListener(
   "click",
@@ -2310,8 +2239,11 @@ bildNextBtn.addEventListener(
       aktuellesBildIndex <
       aktuellerOrdner.images.length - 1
     ) {
+
       aktuellesBildIndex++;
+
       bildRendern();
+
     }
 
   }
@@ -2329,49 +2261,85 @@ function openFolder(folder, herkunftId) {
   windowTitle.textContent =
     folder.name;
 
-  aktuellerOrdner = folder;
-  aktuellesBildIndex = 0;
+  aktuellerOrdner =
+    folder;
+
+  aktuellesBildIndex =
+    0;
 
   bildRendern();
 
 
   const infoFelder = [
-    { wert: "masse-wert", card: "masse-card", daten: folder.masse },
-    { wert: "material-wert", card: "material-card", daten: folder.material },
-    { wert: "erstellt-wert", card: "erstellt-card", daten: folder.erstellt }
-  ];
 
-  let mindestensEinFeld = false;
+    {
+      wert: "masse-wert",
+      card: "masse-card",
+      daten: folder.masse
+    },
 
-  infoFelder.forEach(feld => {
+    {
+      wert: "material-wert",
+      card: "material-card",
+      daten: folder.material
+    },
 
-    document.getElementById(
-      feld.wert
-    ).textContent =
-      feld.daten || "";
-
-    document.getElementById(
-      feld.card
-    ).style.display =
-      feld.daten ? "block" : "none";
-
-    if (feld.daten) {
-      mindestensEinFeld = true;
+    {
+      wert: "erstellt-wert",
+      card: "erstellt-card",
+      daten: folder.erstellt
     }
 
-  });
+  ];
+
+
+  let mindestensEinFeld =
+    false;
+
+
+  infoFelder.forEach(
+    feld => {
+
+      document.getElementById(
+        feld.wert
+      ).textContent =
+        feld.daten || "";
+
+
+      document.getElementById(
+        feld.card
+      ).style.display =
+        feld.daten
+          ? "block"
+          : "none";
+
+
+      if (feld.daten) {
+
+        mindestensEinFeld =
+          true;
+
+      }
+
+    }
+  );
+
 
   const masseWrap =
     document.getElementById(
       "masse-wrap"
     );
 
+
   masseWrap.style.display =
-    mindestensEinFeld ? "flex" : "none";
+    mindestensEinFeld
+      ? "flex"
+      : "none";
 
 
   herkunftsOverlayId =
     herkunftId || null;
+
 
   if (herkunftsOverlayId) {
 
@@ -2379,6 +2347,7 @@ function openFolder(folder, herkunftId) {
       document.getElementById(
         herkunftsOverlayId
       );
+
 
     if (herkunftsFenster) {
 
@@ -2390,19 +2359,17 @@ function openFolder(folder, herkunftId) {
 
   }
 
+
   ordnerOverlay.classList.add(
     "active"
   );
 
 }
 
-/*
-  schließt die bildansicht und
-  kehrt – falls vorhanden – zum
-  ordner zurück, aus dem sie
-  geöffnet wurde (werke/rooms),
-  statt direkt zum hauptmenü.
-*/
+
+/* ================================================= */
+/* DETAILANSICHT SCHLIESSEN */
+/* ================================================= */
 
 function detailSchliessen() {
 
@@ -2410,12 +2377,14 @@ function detailSchliessen() {
     "active"
   );
 
+
   if (herkunftsOverlayId) {
 
     const herkunftsFenster =
       document.getElementById(
         herkunftsOverlayId
       );
+
 
     if (herkunftsFenster) {
 
@@ -2425,9 +2394,12 @@ function detailSchliessen() {
 
     }
 
-    herkunftsOverlayId = null;
+
+    herkunftsOverlayId =
+      null;
 
   }
+
 
   setzeHintergrund();
 
@@ -2435,14 +2407,15 @@ function detailSchliessen() {
 
 
 /* ================================================= */
-/* FENSTER-PUNKTE: SCHLIESSEN / MINIMIEREN / MAXIMIEREN */
+/* FENSTER-PUNKTE */
 /* ================================================= */
 
 /*
   rot = schließen
-  gelb = minimieren (schrumpft weg, schließt danach)
-  grün = maximieren / wieder normal groß
+  gelb = minimieren
+  grün = maximieren / normal
 */
+
 
 document
   .querySelectorAll(".dot.red")
@@ -2459,13 +2432,18 @@ document
 
         if (overlay) {
 
-          if (overlay === ordnerOverlay) {
+          if (
+            overlay ===
+            ordnerOverlay
+          ) {
 
             detailSchliessen();
 
           } else {
 
-            schliesseOverlay(overlay);
+            schliesseOverlay(
+              overlay
+            );
 
           }
 
@@ -2475,6 +2453,7 @@ document
     );
 
   });
+
 
 document
   .querySelectorAll(".dot.yellow")
@@ -2492,36 +2471,51 @@ document
         const overlay =
           dot.closest(".overlay");
 
+
         if (!win || !overlay) {
+
           return;
+
         }
+
 
         win.classList.add(
           "minimizing"
         );
 
-        setTimeout(() => {
 
-          if (overlay === ordnerOverlay) {
+        setTimeout(
+          () => {
 
-            detailSchliessen();
+            if (
+              overlay ===
+              ordnerOverlay
+            ) {
 
-          } else {
+              detailSchliessen();
 
-            schliesseOverlay(overlay);
+            } else {
 
-          }
+              schliesseOverlay(
+                overlay
+              );
 
-          win.classList.remove(
-            "minimizing"
-          );
+            }
 
-        }, 260);
+
+            win.classList.remove(
+              "minimizing"
+            );
+
+          },
+          260
+        );
 
       }
     );
 
   });
+
 
 document
   .querySelectorAll(".dot.green")
@@ -2535,6 +2529,7 @@ document
 
         const win =
           dot.closest(".window");
+
 
         if (win) {
 
@@ -2562,23 +2557,23 @@ document
       "click",
       event => {
 
-        /*
-          Nur wenn der Benutzer auf
-          den Bereich außerhalb des Fensters
-          klickt, wird geschlossen.
-        */
-
         if (
-          event.target === overlay
+          event.target ===
+          overlay
         ) {
 
-          if (overlay === ordnerOverlay) {
+          if (
+            overlay ===
+            ordnerOverlay
+          ) {
 
             detailSchliessen();
 
           } else {
 
-            schliesseOverlay(overlay);
+            schliesseOverlay(
+              overlay
+            );
 
           }
 
@@ -2598,25 +2593,40 @@ document.addEventListener(
   "keydown",
   event => {
 
-    if (event.key !== "Escape") {
+    if (
+      event.key !==
+      "Escape"
+    ) {
+
       return;
+
     }
 
+
     document
-      .querySelectorAll(".overlay.active")
-      .forEach(overlay => {
+      .querySelectorAll(
+        ".overlay.active"
+      )
+      .forEach(
+        overlay => {
 
-        if (overlay === ordnerOverlay) {
+          if (
+            overlay ===
+            ordnerOverlay
+          ) {
 
-          detailSchliessen();
+            detailSchliessen();
 
-        } else {
+          } else {
 
-          schliesseOverlay(overlay);
+            schliesseOverlay(
+              overlay
+            );
+
+          }
 
         }
-
-      });
+      );
 
   }
 );
