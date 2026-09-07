@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 
 <html lang="de">
@@ -132,7 +133,7 @@ a {
   color: #0021ff;
 }
 
-/* ---- h2 zwischenüberschriften (klickbar) ---- */
+/* ---- h2 zwischenüberschriften ---- */
 
 h2 {
   font-size: 20px;
@@ -437,7 +438,10 @@ h2:hover {
   margin-bottom: 10px;
 }
 
-/* ---- werke: textliste statt ordner-icons ---- */
+
+/* ================================================= */
+/* WERKE: TEXTLISTE */
+/* ================================================= */
 
 .werk-list {
   display: flex;
@@ -450,7 +454,12 @@ h2:hover {
 
 .werk-item {
   font-family: "handschrift leon-kilian";
-  font-size: 24px;
+
+  /*
+    automatische Anpassung
+  */
+  font-size: clamp(18px, 2.2vw, 24px);
+
   color: #0021ff;
   text-align: center;
 
@@ -485,10 +494,14 @@ h2:hover {
   opacity: 1;
 }
 
-/* ---- werke: banner-bild oben im fenster ---- */
+
+/* ================================================= */
+/* WERKE: BANNER */
+/* ================================================= */
 
 .werke-banner {
   display: block;
+
   width: 100%;
   height: auto;
 
@@ -498,10 +511,13 @@ h2:hover {
   margin-bottom: 18px;
 }
 
-/* ---- werke: foto-reihe im gestreiften rahmen ---- */
+
+/* ================================================= */
+/* WERKE: GESTREIFTER RAHMEN */
+/* ================================================= */
 
 .werke-frame {
-  padding: 16px;
+  padding: clamp(8px, 1.5vw, 16px);
 
   background: repeating-linear-gradient(
     90deg,
@@ -518,22 +534,33 @@ h2:hover {
   background: #f4f2ef;
   border-radius: 4px;
 
-  padding: 20px 14px;
+  padding:
+    clamp(10px, 2vw, 20px)
+    clamp(6px, 1.5vw, 14px);
 
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.2);
 }
+
+
+/* ================================================= */
+/* WERKE CAROUSEL */
+/* ================================================= */
 
 .werke-carousel-wrap {
   display: flex;
   align-items: center;
-  gap: 8px;
+
+  gap: clamp(5px, 1vw, 8px);
+
+  min-width: 0;
 }
 
 .carousel-arrow {
   flex-shrink: 0;
 
-  width: 32px;
-  height: 32px;
+  width: clamp(26px, 3vw, 32px);
+  height: clamp(26px, 3vw, 32px);
 
   border: none;
   border-radius: 50%;
@@ -541,7 +568,7 @@ h2:hover {
   background: #0021ff;
   color: #f4f2ef;
 
-  font-size: 16px;
+  font-size: clamp(13px, 1.5vw, 16px);
   line-height: 1;
 
   cursor: pointer;
@@ -554,7 +581,8 @@ h2:hover {
 
 .werk-grid {
   display: flex;
-  gap: 10px;
+
+  gap: clamp(5px, 1.2vw, 10px);
 
   flex: 1;
   min-width: 0;
@@ -562,10 +590,14 @@ h2:hover {
 
 .werk-cell {
   flex: 1 1 0;
+
   min-width: 0;
+  max-width: 100%;
 
   cursor: pointer;
   text-align: center;
+
+  overflow: hidden;
 
   transition: opacity 0.18s ease;
 }
@@ -576,90 +608,188 @@ h2:hover {
 
 .werk-cell img {
   width: 100%;
+  max-width: 100%;
+
   aspect-ratio: 3/4;
   object-fit: cover;
 
   display: block;
 
-  margin-bottom: 6px;
+  margin-bottom: clamp(4px, 0.6vw, 6px);
 }
 
-/* ---- WERK-NAMEN: LANGE NAMEN UMBRECHEN ---- */
+
+/* ================================================= */
+/* WERK-NAMEN */
+/* ================================================= */
 
 .werk-cell .werk-name {
   display: block;
 
   width: 100%;
+  max-width: 100%;
+
   box-sizing: border-box;
 
   font-family: "handschrift leon-kilian";
   font-weight: normal;
-  font-size: 16px;
+
+  /*
+    passt sich automatisch an die Fenstergröße an
+  */
+  font-size: clamp(10px, 1.35vw, 16px);
+
   line-height: 1.1;
 
   text-align: center;
 
+  /*
+    lange Namen dürfen umbrechen,
+    aber niemals die Spalte verbreitern
+  */
   white-space: normal;
+
   overflow-wrap: anywhere;
+
   word-break: normal;
 
-  margin-bottom: 6px;
+  margin: 0 0 clamp(4px, 0.6vw, 6px);
 }
+
+
+/* ================================================= */
+/* WERK-INFORMATIONEN */
+/* ================================================= */
 
 .werk-cell .werk-info {
   display: flex;
-  gap: 3px;
 
-  border-top: 1px solid rgba(0, 33, 255, 0.18);
-  padding-top: 5px;
+  width: 100%;
+  max-width: 100%;
+
+  gap: clamp(2px, 0.4vw, 4px);
+
+  box-sizing: border-box;
+
+  border-top:
+    1px solid rgba(0, 33, 255, 0.18);
+
+  padding-top:
+    clamp(4px, 0.6vw, 5px);
 }
 
 .werk-cell .werk-info div {
-  flex: 1;
+  flex: 1 1 0;
+
   min-width: 0;
+  max-width: 100%;
+
+  overflow: hidden;
 }
+
+
+/* ================================================= */
+/* INFO LABELS */
+/* ================================================= */
 
 .werk-cell .werk-info .werk-info-label {
   display: block;
 
-  font-size: 7px;
+  font-size:
+    clamp(5px, 0.65vw, 7px);
+
   color: #0021ff;
+
   opacity: 0.55;
+
   font-family: "schrift website";
 
   text-transform: lowercase;
+
+  line-height: 1.1;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
 }
+
+
+/* ================================================= */
+/* INFO WERTE */
+/* ================================================= */
 
 .werk-cell .werk-info .werk-info-wert {
   display: block;
-  font-size: 8px;
+
+  font-size:
+    clamp(6px, 0.75vw, 8px);
+
   color: #0021ff;
+
   font-family: "schrift website";
-  word-break: normal;
-  overflow-wrap: normal;
+
+  line-height: 1.3;
+
+  max-width: 100%;
+
   white-space: normal;
-  line-height: 1.35;
+
+  overflow-wrap: break-word;
+
+  word-break: normal;
 }
 
-.werk-beschreibung {
-  margin-top: 12px;
-  padding-top: 10px;
-  font-family: "schrift website";
-  font-size: 9px;
-  line-height: 1.4;
-  color: #FF0000;
-  text-align: left;
-}
 
-/* Material: Umbruch nur zwischen Wörtern, niemals innerhalb eines Wortes */
+/* ================================================= */
+/* MATERIAL */
+/* ================================================= */
 
 .werk-cell .werk-info .werk-info-wert.material-wert {
-  word-break: normal;
-  overflow-wrap: normal;
   white-space: normal;
+
+  overflow-wrap: break-word;
+
+  word-break: normal;
+
+  max-width: 100%;
 }
 
-/* ---- kontakt: gestreifte karte ---- */
+
+/* ================================================= */
+/* WERK BESCHREIBUNG */
+/* ================================================= */
+
+.werk-beschreibung {
+  margin-top:
+    clamp(8px, 1vw, 12px);
+
+  padding-top:
+    clamp(7px, 0.8vw, 10px);
+
+  font-family: "schrift website";
+
+  font-size:
+    clamp(7px, 0.85vw, 9px);
+
+  line-height: 1.4;
+
+  color: #FF0000;
+
+  text-align: left;
+
+  max-width: 100%;
+
+  box-sizing: border-box;
+
+  overflow-wrap: break-word;
+}
+
+
+/* ================================================= */
+/* KONTAKT */
+/* ================================================= */
 
 #kontakt-overlay .window-body {
   padding: 24px;
@@ -675,14 +805,110 @@ h2:hover {
 
 .kontakt-card {
   background: #f4f2ef;
+
   border-radius: 4px;
 
   padding: 30px 26px;
 
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* ---- info-felder unter jedem werk ---- */
+.kontakt-card h3 {
+  font-family: "handschrift leon-kilian";
+
+  font-size: 26px;
+
+  color: #0021ff;
+
+  margin: 0 0 22px;
+
+  text-align: center;
+}
+
+.kontakt-field {
+  margin-bottom: 18px;
+}
+
+.kontakt-field label {
+  display: block;
+
+  font-size: 11px;
+
+  color: #0021ff;
+
+  opacity: 0.6;
+
+  font-family: "schrift website";
+
+  margin-bottom: 4px;
+}
+
+.kontakt-field input,
+.kontakt-field textarea {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  border: none;
+
+  border-bottom:
+    1px solid rgba(0, 33, 255, 0.35);
+
+  background: transparent;
+
+  font-family: "schrift website";
+
+  color: #0021ff;
+
+  font-size: 14px;
+
+  padding: 4px 0;
+
+  resize: none;
+}
+
+.kontakt-field input:focus,
+.kontakt-field textarea:focus {
+  outline: none;
+
+  border-bottom-color:
+    #0021ff;
+}
+
+.kontakt-submit {
+  display: block;
+
+  margin: 22px auto 4px;
+
+  padding: 10px 26px;
+
+  border:
+    1px solid #0021ff;
+
+  border-radius: 20px;
+
+  background: #0021ff;
+
+  color: #f4f2ef;
+
+  font-family: "schrift website";
+
+  cursor: pointer;
+}
+
+.kontakt-alt {
+  text-align: center;
+
+  margin-top: 18px;
+
+  font-size: 13px;
+}
+
+
+/* ================================================= */
+/* INFO-FELDER UNTER JEDEM WERK */
+/* ================================================= */
 
 .masse-wrap {
   margin-top: 20px;
@@ -690,7 +916,9 @@ h2:hover {
   padding: 16px;
 
   display: flex;
+
   flex-wrap: wrap;
+
   gap: 12px;
 
   background: repeating-linear-gradient(
@@ -707,21 +935,29 @@ h2:hover {
 .masse-card {
   flex: 1 1 120px;
 
+  min-width: 0;
+
   background: #f4f2ef;
+
   border-radius: 4px;
 
   padding: 14px 12px;
 
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.15);
 
   text-align: center;
+
+  overflow: hidden;
 }
 
 .masse-card .masse-label {
   display: block;
 
   font-size: 11px;
+
   color: #0021ff;
+
   opacity: 0.6;
 
   font-family: "schrift website";
@@ -731,90 +967,35 @@ h2:hover {
 
 .masse-card .masse-wert {
   font-family: "handschrift leon-kilian";
-  font-size: 18px;
+
+  /*
+    ebenfalls responsive
+  */
+  font-size:
+    clamp(12px, 1.5vw, 18px);
+
   color: #0021ff;
+
+  overflow-wrap: break-word;
+
+  word-break: normal;
+
+  white-space: normal;
 }
 
-.kontakt-card h3 {
-  font-family: "handschrift leon-kilian";
-  font-size: 26px;
-  color: #0021ff;
-
-  margin: 0 0 22px;
-  text-align: center;
-}
-
-.kontakt-field {
-  margin-bottom: 18px;
-}
-
-.kontakt-field label {
-  display: block;
-
-  font-size: 11px;
-  color: #0021ff;
-  opacity: 0.6;
-
-  font-family: "schrift website";
-
-  margin-bottom: 4px;
-}
-
-.kontakt-field input,
-.kontakt-field textarea {
-  width: 100%;
-  box-sizing: border-box;
-
-  border: none;
-  border-bottom: 1px solid rgba(0, 33, 255, 0.35);
-  background: transparent;
-
-  font-family: "schrift website";
-  color: #0021ff;
-  font-size: 14px;
-
-  padding: 4px 0;
-  resize: none;
-}
-
-.kontakt-field input:focus,
-.kontakt-field textarea:focus {
-  outline: none;
-  border-bottom-color: #0021ff;
-}
-
-.kontakt-submit {
-  display: block;
-  margin: 22px auto 4px;
-
-  padding: 10px 26px;
-
-  border: 1px solid #0021ff;
-  border-radius: 20px;
-
-  background: #0021ff;
-  color: #f4f2ef;
-
-  font-family: "schrift website";
-  cursor: pointer;
-}
-
-.kontakt-alt {
-  text-align: center;
-  margin-top: 18px;
-  font-size: 13px;
-}
 
 /* ================================================= */
-/* RESPONSIVE FENSTER + WERK-NAMEN */
+/* RESPONSIVE FENSTER */
 /* ================================================= */
 
-/* Große Bildschirme */
+
+/* ---- große bildschirme ---- */
 
 @media (min-width: 1200px) {
 
   .window {
     width: min(620px, 70vw);
+
     max-height: 82vh;
   }
 
@@ -828,12 +1009,14 @@ h2:hover {
 
 }
 
-/* Laptop / normale Desktop-Bildschirme */
+
+/* ---- laptop ---- */
 
 @media (min-width: 801px) and (max-width: 1199px) {
 
   .window {
     width: min(560px, 78vw);
+
     max-height: 82vh;
   }
 
@@ -847,7 +1030,8 @@ h2:hover {
 
 }
 
-/* Tablet */
+
+/* ---- tablet ---- */
 
 @media (min-width: 601px) and (max-width: 800px) {
 
@@ -857,6 +1041,7 @@ h2:hover {
 
   .window {
     width: 88vw;
+
     max-height: 84vh;
   }
 
@@ -865,18 +1050,10 @@ h2:hover {
     width: 92vw;
   }
 
-  .werk-cell .werk-name {
-    font-size: 14px;
-    line-height: 1.15;
-
-    white-space: normal;
-    overflow-wrap: anywhere;
-    word-break: normal;
-  }
-
 }
 
-/* Handy */
+
+/* ---- handy ---- */
 
 @media (max-width: 600px) {
 
@@ -890,14 +1067,18 @@ h2:hover {
 
   .window {
     width: 92vw;
+
     max-width: 92vw;
+
     max-height: 88vh;
+
     border-radius: 8px;
   }
 
   #werke-overlay .window,
   #ordner-detail-overlay .window {
     width: 94vw;
+
     max-width: 94vw;
   }
 
@@ -921,41 +1102,21 @@ h2:hover {
     min-width: 0;
   }
 
-  .werk-cell .werk-name {
-    font-size: 13px;
-    line-height: 1.15;
-
-    white-space: normal;
-    overflow-wrap: anywhere;
-    word-break: normal;
-
-    min-height: 30px;
-  }
-
-  .werk-cell .werk-info .werk-info-wert {
-    font-size: 7px;
-    line-height: 1.3;
-
-    white-space: normal;
-    overflow-wrap: anywhere;
-  }
-
-  .werk-cell .werk-info .werk-info-label {
-    font-size: 6px;
-  }
-
   .werk-beschreibung {
     font-size: 8px;
   }
 
   .carousel-arrow {
     width: 28px;
+
     height: 28px;
+
     font-size: 14px;
   }
 
   .about-body .subtext {
     font-size: 8px;
+
     width: 88%;
   }
 
@@ -967,15 +1128,25 @@ h2:hover {
 
 <body>
 
-<img class="werk-preview" id="werk-preview" alt="">
+<img
+  class="werk-preview"
+  id="werk-preview"
+  alt=""
+>
+
 
 <!-- ==================== -->
 <!-- LAUFSCHRIFT -->
 <!-- ==================== -->
 
 <div class="marquee-wrap">
-  <h1>leon kilian wandmacher</h1>
+
+  <h1>
+    leon kilian wandmacher
+  </h1>
+
 </div>
+
 
 <!-- ==================== -->
 <!-- HAUPTMENÜ -->
@@ -1009,21 +1180,29 @@ h2:hover {
 
 </div>
 
+
 <!-- ==================== -->
 <!-- ÜBER MICH -->
 <!-- ==================== -->
 
-<div class="overlay" id="about-overlay">
+<div
+  class="overlay"
+  id="about-overlay"
+>
 
   <div class="window">
 
     <div class="titlebar">
 
       <div class="dot red"></div>
+
       <div class="dot yellow"></div>
+
       <div class="dot green"></div>
 
-      <span>über mich</span>
+      <span>
+        über mich
+      </span>
 
     </div>
 
@@ -1045,6 +1224,7 @@ h2:hover {
       </video>
 
       <p class="subtext">
+
         Ich bin Leon-Kilian, ein 25 jähriger kreativer,
         junger Rabauke, aufgewachsen an der Ostsee,
         der sich zwischen Schulstress, dem Traum vom
@@ -1059,6 +1239,7 @@ h2:hover {
         leinwänden verarbeite alte geschichten, male
         sie neu, wie sie mir gefallen, male mich neu,
         dich.
+
       </p>
 
     </div>
@@ -1067,21 +1248,29 @@ h2:hover {
 
 </div>
 
+
 <!-- ==================== -->
 <!-- WERKE -->
 <!-- ==================== -->
 
-<div class="overlay" id="werke-overlay">
+<div
+  class="overlay"
+  id="werke-overlay"
+>
 
   <div class="window">
 
     <div class="titlebar">
 
       <div class="dot red"></div>
+
       <div class="dot yellow"></div>
+
       <div class="dot green"></div>
 
-      <span>werke</span>
+      <span>
+        werke
+      </span>
 
     </div>
 
@@ -1105,7 +1294,9 @@ h2:hover {
               class="carousel-arrow"
               id="werke-prev"
               aria-label="zurück"
-            >‹</button>
+            >
+              ‹
+            </button>
 
             <div
               class="werk-grid"
@@ -1116,7 +1307,9 @@ h2:hover {
               class="carousel-arrow"
               id="werke-next"
               aria-label="weiter"
-            >›</button>
+            >
+              ›
+            </button>
 
           </div>
 
@@ -1129,6 +1322,7 @@ h2:hover {
   </div>
 
 </div>
+
 
 <!-- ==================== -->
 <!-- ORDNER DETAIL -->
@@ -1144,7 +1338,9 @@ h2:hover {
     <div class="titlebar">
 
       <div class="dot red"></div>
+
       <div class="dot yellow"></div>
+
       <div class="dot green"></div>
 
       <span id="window-title">
@@ -1161,7 +1357,9 @@ h2:hover {
           class="carousel-arrow"
           id="bild-prev"
           aria-label="voriges bild"
-        >‹</button>
+        >
+          ‹
+        </button>
 
         <div
           class="image-grid"
@@ -1172,36 +1370,68 @@ h2:hover {
           class="carousel-arrow"
           id="bild-next"
           aria-label="nächstes bild"
-        >›</button>
+        >
+          ›
+        </button>
 
       </div>
 
-      <div class="image-counter" id="image-counter"></div>
+      <div
+        class="image-counter"
+        id="image-counter"
+      ></div>
 
-      <div class="masse-wrap" id="masse-wrap">
+      <div
+        class="masse-wrap"
+        id="masse-wrap"
+      >
 
-        <div class="masse-card" id="masse-card">
-          <span class="masse-label">maße</span>
+        <div
+          class="masse-card"
+          id="masse-card"
+        >
+
+          <span class="masse-label">
+            maße
+          </span>
+
           <span
             class="masse-wert"
             id="masse-wert"
           ></span>
+
         </div>
 
-        <div class="masse-card" id="material-card">
-          <span class="masse-label">material</span>
+        <div
+          class="masse-card"
+          id="material-card"
+        >
+
+          <span class="masse-label">
+            material
+          </span>
+
           <span
             class="masse-wert"
             id="material-wert"
           ></span>
+
         </div>
 
-        <div class="masse-card" id="erstellt-card">
-          <span class="masse-label">erstellt</span>
+        <div
+          class="masse-card"
+          id="erstellt-card"
+        >
+
+          <span class="masse-label">
+            erstellt
+          </span>
+
           <span
             class="masse-wert"
             id="erstellt-wert"
           ></span>
+
         </div>
 
       </div>
@@ -1211,6 +1441,7 @@ h2:hover {
   </div>
 
 </div>
+
 
 <!-- ==================== -->
 <!-- KONTAKT -->
@@ -1226,10 +1457,14 @@ h2:hover {
     <div class="titlebar">
 
       <div class="dot red"></div>
+
       <div class="dot yellow"></div>
+
       <div class="dot green"></div>
 
-      <span>kontakt</span>
+      <span>
+        kontakt
+      </span>
 
     </div>
 
@@ -1237,12 +1472,17 @@ h2:hover {
 
       <div class="kontakt-card">
 
-        <h3>get in touch!</h3>
+        <h3>
+          get in touch!
+        </h3>
 
         <form id="kontakt-form">
 
           <div class="kontakt-field">
-            <label for="kontakt-name">name</label>
+
+            <label for="kontakt-name">
+              name
+            </label>
 
             <input
               type="text"
@@ -1254,7 +1494,9 @@ h2:hover {
 
           <div class="kontakt-field">
 
-            <label for="kontakt-email">email</label>
+            <label for="kontakt-email">
+              email
+            </label>
 
             <input
               type="email"
@@ -1266,7 +1508,9 @@ h2:hover {
 
           <div class="kontakt-field">
 
-            <label for="kontakt-message">message</label>
+            <label for="kontakt-message">
+              message
+            </label>
 
             <textarea
               id="kontakt-message"
@@ -1307,6 +1551,7 @@ h2:hover {
 
 </div>
 
+
 <!-- ==================== -->
 <!-- KUNST KAUFEN -->
 <!-- ==================== -->
@@ -1321,10 +1566,14 @@ h2:hover {
     <div class="titlebar">
 
       <div class="dot red"></div>
+
       <div class="dot yellow"></div>
+
       <div class="dot green"></div>
 
-      <span>wie kaufe ich kunst</span>
+      <span>
+        wie kaufe ich kunst
+      </span>
 
     </div>
 
@@ -1332,8 +1581,8 @@ h2:hover {
 
       <p class="subtext">
 
-       neben auftragsarbeiten kannst du auf anfrage den preis 
-        der hier aufgelisteten bilder erfragen. 
+        neben auftragsarbeiten kannst du auf anfrage den preis
+        der hier aufgelisteten bilder erfragen.
         entweder oldschool per mail oder newschool per DM.
 
       </p>
@@ -1343,6 +1592,7 @@ h2:hover {
   </div>
 
 </div>
+
 
 <!-- ==================== -->
 <!-- WICHTIG -->
@@ -1358,10 +1608,14 @@ h2:hover {
     <div class="titlebar">
 
       <div class="dot red"></div>
+
       <div class="dot yellow"></div>
+
       <div class="dot green"></div>
 
-      <span>wichtig</span>
+      <span>
+        wichtig
+      </span>
 
     </div>
 
@@ -1369,11 +1623,10 @@ h2:hover {
 
       <p class="subtext">
 
-       wenn es dir nicht gut geht und du hilfe brauchst, 
-        um ein trauma zu verarbeiten, dann bist du nicht alleine. 
-        wir tragen alle unsere päckchen. darüber zu reden, bedarf mut. 
+        wenn es dir nicht gut geht und du hilfe brauchst,
+        um ein trauma zu verarbeiten, dann bist du nicht alleine.
+        wir tragen alle unsere päckchen. darüber zu reden, bedarf mut.
         es ist okay, wenn du den noch nicht hast.
-
 
       </p>
 
@@ -1382,6 +1635,7 @@ h2:hover {
   </div>
 
 </div>
+
 
 <!-- ==================== -->
 <!-- ROOMS -->
@@ -1397,10 +1651,14 @@ h2:hover {
     <div class="titlebar">
 
       <div class="dot red"></div>
+
       <div class="dot yellow"></div>
+
       <div class="dot green"></div>
 
-      <span>rooms</span>
+      <span>
+        rooms
+      </span>
 
     </div>
 
@@ -1417,6 +1675,7 @@ h2:hover {
 
 </div>
 
+
 <script>
 
 /* ================================================= */
@@ -1427,40 +1686,50 @@ document
   .querySelectorAll("[data-popup]")
   .forEach(item => {
 
-    item.addEventListener("click", () => {
+    item.addEventListener(
+      "click",
+      () => {
 
-      const popupId =
-        item.getAttribute("data-popup");
+        const popupId =
+          item.getAttribute(
+            "data-popup"
+          );
 
-      const popup =
-        document.getElementById(popupId);
+        const popup =
+          document.getElementById(
+            popupId
+          );
 
-      if (!popup) {
+        if (!popup) {
 
-        console.error(
-          "Popup nicht gefunden:",
-          popupId
-        );
+          console.error(
+            "Popup nicht gefunden:",
+            popupId
+          );
 
-        return;
-      }
+          return;
 
-      const preview =
-        document.getElementById(
-          "werk-preview"
-        );
+        }
 
-      if (preview) {
+        const preview =
+          document.getElementById(
+            "werk-preview"
+          );
 
-        preview.classList.remove(
+        if (preview) {
+
+          preview.classList.remove(
+            "active"
+          );
+
+        }
+
+        popup.classList.add(
           "active"
         );
 
       }
-
-      popup.classList.add("active");
-
-    });
+    );
 
   });
 
@@ -1473,136 +1742,212 @@ const folders = [
 
   {
     name: "whydoyouthinkwemet",
+
     masse: "90 x 120 cm",
-    material: "acryl, chalk auf leinwand",
+
+    material:
+      "acryl, chalk auf leinwand",
+
     erstellt: "2026",
+
     images: [
       "whydoyouthinkwemet.JPG",
       "whydoyouthinkwemet4.JPG",
       "whydoyouthinkwemet3.JPG"
     ]
+
   },
 
   {
     name: "homageancro",
+
     masse: "100 x 120 cm",
-    material: "acryl, chalk auf leinwand",
+
+    material:
+      "acryl, chalk auf leinwand",
+
     erstellt: "2023",
+
     beschreibung: "verkauft",
+
     images: [
       "bild5.png",
       "DSC00549.jpg",
       "DSC00548.jpg",
       "DSC00559.jpg"
     ]
+
   },
 
   {
     name: "schönerTag",
+
     masse: "120 x 90 cm",
-    material: "acryl, chalk auf leinwand",
+
+    material:
+      "acryl, chalk auf leinwand",
+
     erstellt: "2024",
+
     beschreibung: "verkauft",
+
     images: [
       "bild3.png",
       "DSC00592.jpg",
       "DSC00589.jpg"
     ]
+
   },
 
   {
     name: "snoopy",
+
     masse: "100 x 120 cm",
-    material: "acryl, chalk auf leinwand",
+
+    material:
+      "acryl, chalk auf leinwand",
+
     erstellt: "2024",
+
     beschreibung: "verkauft",
+
     images: [
       "snoopy.jpg"
     ]
+
   },
 
   {
-    name: "vergissmichnichtzuschnell",
+    name:
+      "vergissmichnichtzuschnell",
+
     masse: "90 x 120 cm",
-    material: "acryl, chalk auf leinwand",
+
+    material:
+      "acryl, chalk auf leinwand",
+
     erstellt: "2026",
+
     images: [
       "vergissmichnichtzuschnell.JPG",
       "vergissmichnichtzuschnell2.JPG",
       "vergissmichnichtzuschnell3.JPG"
     ]
+
   },
 
   {
     name: "notdoingwell",
+
     masse: "90 x 120 cm",
-    material: "acryl, chalk auf leinwand",
+
+    material:
+      "acryl, chalk auf leinwand",
+
     erstellt: "2025",
+
     images: [
       "Bild6.png",
       "DSC00526.jpg",
       "DSC00538.jpg"
     ]
+
   },
 
   {
     name: "feverdream",
+
     masse: "50 x 70 cm",
-    material: "acryl auf leinwand",
+
+    material:
+      "acryl auf leinwand",
+
     erstellt: "2024",
+
     images: [
       "IMG_0976.heic.jpg"
     ]
+
   },
 
   {
     name: "letterfromfelix",
+
     masse: "90 x 120 cm",
-    material: "acryl auf leinwand",
+
+    material:
+      "acryl auf leinwand",
+
     erstellt: "2025",
+
     images: [
       "IMG_0960.heic.jpg"
     ]
+
   },
 
   {
     name: "schäfchenzählen",
+
     masse: "90 x 120 cm",
-    material: "acryl auf leinwand",
+
+    material:
+      "acryl auf leinwand",
+
     erstellt: "2026",
+
     images: [
       "IMG_0970.heic.jpg"
     ]
+
   },
 
   {
     name: "hugme",
+
     masse: "100 x 110 cm",
-    material: "acryl auf leinwand",
+
+    material:
+      "acryl auf leinwand",
+
     erstellt: "2025",
+
     images: [
       "IMG_0979.heic.jpg"
     ]
+
   },
 
   {
     name: "küssenwiruns",
+
     masse: "120 x 90 cm",
-    material: "acryl, chalk auf leinwand",
+
+    material:
+      "acryl, chalk auf leinwand",
+
     erstellt: "2025",
+
     images: [
       "IMG_0995.heic.jpg"
     ]
+
   },
 
   {
     name: "erinnerunganblau",
+
     masse: "90 x 120 cm",
-    material: "acryl, chalk auf leinwand",
+
+    material:
+      "acryl, chalk auf leinwand",
+
     erstellt: "2026",
+
     images: [
       "IMG_0966.heic.jpg"
     ]
+
   }
 
 ];
@@ -1616,62 +1961,78 @@ const roomFolders = [
 
   {
     name: "Raum eins",
+
     images: [
       "Raum1.JPG",
       "Raum1.1.JPG"
     ]
+
   },
 
   {
     name: "Raum zwei",
+
     images: [
       "Raum2.JPG"
     ]
+
   },
 
   {
     name: "Raum drei",
+
     images: [
       "Raum3.jpg"
     ]
+
   },
 
   {
     name: "Raum vier",
+
     images: [
       "Raum4.JPG",
       "Raum4.1.JPG"
     ]
+
   },
 
   {
     name: "Raum fuenf",
+
     images: [
       "Raum5.JPG"
     ]
+
   },
 
   {
     name: "Raum sechs",
+
     images: [
       "Bildflur2.jpg",
       "Bildflur.jpg",
       "Bildflur1.jpg"
     ]
+
   },
 
   {
     name: "Raum sieben",
+
     images: [
       "Raum7.jpg"
     ]
+
   },
 
   {
     name: "Raum acht",
+
     images: [
       "IMG_2808.jpg"
     ]
+
   }
 
 ];
@@ -1682,10 +2043,14 @@ const roomFolders = [
 /* ================================================= */
 
 const desktop =
-  document.getElementById("desktop");
+  document.getElementById(
+    "desktop"
+  );
 
 const roomsDesktop =
-  document.getElementById("rooms-desktop");
+  document.getElementById(
+    "rooms-desktop"
+  );
 
 const ordnerOverlay =
   document.getElementById(
@@ -1706,12 +2071,6 @@ const imageGrid =
 /* ================================================= */
 /* ÖFFENTLICHE WEBSITE */
 /* ================================================= */
-
-/*
-  Die Website ist jetzt öffentlich.
-  Deshalb gibt es keinen Passwortschutz
-  und keinen Coming-Soon-Modus mehr.
-*/
 
 let comingSoonMode = false;
 
@@ -1741,7 +2100,8 @@ const hintergruende = [
 
 ];
 
-let letztesHintergrundbild = null;
+let letztesHintergrundbild =
+  null;
 
 function setzeHintergrund() {
 
@@ -1765,7 +2125,8 @@ function setzeHintergrund() {
         ];
 
     } while (
-      zufallsbild === letztesHintergrundbild &&
+      zufallsbild ===
+        letztesHintergrundbild &&
       hintergruende.length > 1
     );
 
@@ -1775,7 +2136,9 @@ function setzeHintergrund() {
     zufallsbild;
 
   document
-    .querySelector(".menu-center")
+    .querySelector(
+      ".menu-center"
+    )
     .style.backgroundImage =
       `url("${zufallsbild}")`;
 
@@ -1785,10 +2148,12 @@ setzeHintergrund();
 
 
 /* ================================================= */
-/* FENSTER SCHLIESSEN + HINTERGRUND WECHSELN */
+/* FENSTER SCHLIESSEN */
 /* ================================================= */
 
-function schliesseOverlay(overlay) {
+function schliesseOverlay(
+  overlay
+) {
 
   overlay.classList.remove(
     "active"
@@ -1803,118 +2168,159 @@ function schliesseOverlay(overlay) {
 /* ORDNER-RASTER */
 /* ================================================= */
 
-function ordnerRasterErstellen(folderListe, ziel) {
+function ordnerRasterErstellen(
+  folderListe,
+  ziel
+) {
 
   const cols = 3;
-  const spacingX = 90 / cols;
-  const spacingY = 20;
 
-  folderListe.forEach((folder, i) => {
+  const spacingX =
+    90 / cols;
 
-    const col = i % cols;
-    const row = Math.floor(i / cols);
+  const spacingY =
+    20;
 
-    const x = 5 + col * spacingX;
-    const y = 8 + row * spacingY;
+  folderListe.forEach(
+    (folder, i) => {
 
-    const el =
-      document.createElement("div");
+      const col =
+        i % cols;
 
-    el.className =
-      "folder";
+      const row =
+        Math.floor(
+          i / cols
+        );
 
-    el.style.left =
-      x + "%";
+      const x =
+        5 + col * spacingX;
 
-    el.style.top =
-      y + "%";
+      const y =
+        8 + row * spacingY;
 
-    el.innerHTML = `
+      const el =
+        document.createElement(
+          "div"
+        );
 
-      <div class="folder-icon"></div>
+      el.className =
+        "folder";
 
-      <span class="folder-label">
-        ${folder.name}
-      </span>
+      el.style.left =
+        x + "%";
 
-    `;
+      el.style.top =
+        y + "%";
 
-    el.addEventListener(
-      "click",
-      () => openFolder(folder)
-    );
+      el.innerHTML = `
 
-    ziel.appendChild(el);
+        <div class="folder-icon"></div>
 
-  });
+        <span class="folder-label">
+          ${folder.name}
+        </span>
+
+      `;
+
+      el.addEventListener(
+        "click",
+        () => openFolder(folder)
+      );
+
+      ziel.appendChild(
+        el
+      );
+
+    }
+  );
 
 }
 
 
-function werkListeErstellen(folderListe, ziel, herkunftId) {
+/* ================================================= */
+/* WERKLISTE */
+/* ================================================= */
+
+function werkListeErstellen(
+  folderListe,
+  ziel,
+  herkunftId
+) {
 
   const preview =
     document.getElementById(
       "werk-preview"
     );
 
-  folderListe.forEach(folder => {
+  folderListe.forEach(
+    folder => {
 
-    const el =
-      document.createElement("div");
-
-    el.className =
-      "werk-item";
-
-    el.textContent =
-      folder.name;
-
-    el.addEventListener(
-      "mouseenter",
-      () => {
-
-        preview.src =
-          folder.images[0];
-
-        preview.classList.add(
-          "active"
+      const el =
+        document.createElement(
+          "div"
         );
 
-      }
-    );
+      el.className =
+        "werk-item";
 
-    el.addEventListener(
-      "mousemove",
-      event => {
+      el.textContent =
+        folder.name;
 
-        preview.style.left =
-          (event.clientX + 20) + "px";
+      el.addEventListener(
+        "mouseenter",
+        () => {
 
-        preview.style.top =
-          (event.clientY - 90) + "px";
+          preview.src =
+            folder.images[0];
 
-      }
-    );
+          preview.classList.add(
+            "active"
+          );
 
-    el.addEventListener(
-      "mouseleave",
-      () => {
+        }
+      );
 
-        preview.classList.remove(
-          "active"
-        );
+      el.addEventListener(
+        "mousemove",
+        event => {
 
-      }
-    );
+          preview.style.left =
+            (event.clientX + 20) +
+            "px";
 
-    el.addEventListener(
-      "click",
-      () => openFolder(folder, herkunftId)
-    );
+          preview.style.top =
+            (event.clientY - 90) +
+            "px";
 
-    ziel.appendChild(el);
+        }
+      );
 
-  });
+      el.addEventListener(
+        "mouseleave",
+        () => {
+
+          preview.classList.remove(
+            "active"
+          );
+
+        }
+      );
+
+      el.addEventListener(
+        "click",
+        () =>
+          openFolder(
+            folder,
+            herkunftId
+          )
+      );
+
+      ziel.appendChild(
+        el
+      );
+
+    }
+  );
 
 }
 
@@ -1930,14 +2336,18 @@ function werkCarouselErstellen(
   nextBtn
 ) {
 
-  const proSeite = 4;
-  let seite = 0;
+  const proSeite =
+    4;
+
+  let seite =
+    0;
 
   const maxSeite =
     Math.max(
       0,
       Math.ceil(
-        folderListe.length / proSeite
+        folderListe.length /
+        proSeite
       ) - 1
     );
 
@@ -1947,7 +2357,8 @@ function werkCarouselErstellen(
       "";
 
     const start =
-      seite * proSeite;
+      seite *
+      proSeite;
 
     const sichtbar =
       folderListe.slice(
@@ -1955,86 +2366,109 @@ function werkCarouselErstellen(
         start + proSeite
       );
 
-    sichtbar.forEach(folder => {
+    sichtbar.forEach(
+      folder => {
 
-      const cell =
-        document.createElement("div");
+        const cell =
+          document.createElement(
+            "div"
+          );
 
-      cell.className =
-        "werk-cell";
+        cell.className =
+          "werk-cell";
 
-      cell.innerHTML = `
+        cell.innerHTML = `
 
-        <img
-          src="${folder.images[0]}"
-          alt="${folder.name}"
-        >
+          <img
+            src="${folder.images[0]}"
+            alt="${folder.name}"
+          >
 
-        <span class="werk-name">
-          ${folder.name}
-        </span>
+          <span class="werk-name">
+            ${folder.name}
+          </span>
 
-        <div class="werk-info">
+          <div class="werk-info">
 
-          <div>
-            <span class="werk-info-label">
-              größe
-            </span>
+            <div>
 
-            <span class="werk-info-wert">
-              ${folder.masse || "–"}
-            </span>
-          </div>
+              <span
+                class="werk-info-label"
+              >
+                größe
+              </span>
 
-          <div>
+              <span
+                class="werk-info-wert"
+              >
+                ${folder.masse || "–"}
+              </span>
 
-            <span class="werk-info-label">
-              material
-            </span>
-
-            <span class="werk-info-wert material-wert">
-              ${folder.material || "–"}
-            </span>
-
-          </div>
-
-          <div>
-
-            <span class="werk-info-label">
-              datum
-            </span>
-
-            <span class="werk-info-wert">
-              ${folder.erstellt || "–"}
-            </span>
-
-          </div>
-
-        </div>
-
-        ${
-          folder.beschreibung
-          ? `
-            <div class="werk-beschreibung">
-              ${folder.beschreibung}
             </div>
-          `
-          : ""
-        }
 
-      `;
+            <div>
 
-      cell.addEventListener(
-        "click",
-        () => openFolder(
-          folder,
-          "werke-overlay"
-        )
-      );
+              <span
+                class="werk-info-label"
+              >
+                material
+              </span>
 
-      ziel.appendChild(cell);
+              <span
+                class="werk-info-wert material-wert"
+              >
+                ${folder.material || "–"}
+              </span>
 
-    });
+            </div>
+
+            <div>
+
+              <span
+                class="werk-info-label"
+              >
+                datum
+              </span>
+
+              <span
+                class="werk-info-wert"
+              >
+                ${folder.erstellt || "–"}
+              </span>
+
+            </div>
+
+          </div>
+
+          ${
+            folder.beschreibung
+            ? `
+              <div
+                class="werk-beschreibung"
+              >
+                ${folder.beschreibung}
+              </div>
+            `
+            : ""
+          }
+
+        `;
+
+        cell.addEventListener(
+          "click",
+          () =>
+            openFolder(
+              folder,
+              "werke-overlay"
+            )
+        );
+
+        ziel.appendChild(
+          cell
+        );
+
+      }
+    );
 
     prevBtn.disabled =
       seite === 0;
@@ -2063,7 +2497,10 @@ function werkCarouselErstellen(
     "click",
     () => {
 
-      if (seite < maxSeite) {
+      if (
+        seite <
+        maxSeite
+      ) {
 
         seite++;
 
@@ -2082,8 +2519,12 @@ function werkCarouselErstellen(
 werkCarouselErstellen(
   folders,
   desktop,
-  document.getElementById("werke-prev"),
-  document.getElementById("werke-next")
+  document.getElementById(
+    "werke-prev"
+  ),
+  document.getElementById(
+    "werke-next"
+  )
 );
 
 
@@ -2126,14 +2567,17 @@ kontaktForm.addEventListener(
 
     const betreff =
       encodeURIComponent(
-        "nachricht von " + name
+        "nachricht von " +
+        name
       );
 
     const body =
       encodeURIComponent(
         nachricht +
-        "\n\nvon: " + name +
-        "\nemail: " + email
+        "\n\nvon: " +
+        name +
+        "\nemail: " +
+        email
       );
 
     window.location.href =
@@ -2147,8 +2591,11 @@ kontaktForm.addEventListener(
 /* BILD-NAVIGATION */
 /* ================================================= */
 
-let aktuellesBildIndex = 0;
-let aktuellerOrdner = null;
+let aktuellesBildIndex =
+  0;
+
+let aktuellerOrdner =
+  null;
 
 const bildPrevBtn =
   document.getElementById(
@@ -2172,12 +2619,15 @@ function bildRendern() {
     "";
 
   const src =
-    aktuellerOrdner.images[
-      aktuellesBildIndex
-    ];
+    aktuellerOrdner
+      .images[
+        aktuellesBildIndex
+      ];
 
   const img =
-    document.createElement("img");
+    document.createElement(
+      "img"
+    );
 
   img.src =
     src;
@@ -2185,10 +2635,13 @@ function bildRendern() {
   img.alt =
     aktuellerOrdner.name;
 
-  imageGrid.appendChild(img);
+  imageGrid.appendChild(
+    img
+  );
 
   const anzahl =
-    aktuellerOrdner.images.length;
+    aktuellerOrdner
+      .images.length;
 
   imageCounter.textContent =
     anzahl > 1
@@ -2209,7 +2662,8 @@ function bildRendern() {
     aktuellesBildIndex === 0;
 
   bildNextBtn.disabled =
-    aktuellesBildIndex === anzahl - 1;
+    aktuellesBildIndex ===
+    anzahl - 1;
 
 }
 
@@ -2218,7 +2672,10 @@ bildPrevBtn.addEventListener(
   "click",
   () => {
 
-    if (aktuellesBildIndex > 0) {
+    if (
+      aktuellesBildIndex >
+      0
+    ) {
 
       aktuellesBildIndex--;
 
@@ -2237,7 +2694,8 @@ bildNextBtn.addEventListener(
     if (
       aktuellerOrdner &&
       aktuellesBildIndex <
-      aktuellerOrdner.images.length - 1
+      aktuellerOrdner
+        .images.length - 1
     ) {
 
       aktuellesBildIndex++;
@@ -2254,9 +2712,13 @@ bildNextBtn.addEventListener(
 /* ORDNER ÖFFNEN */
 /* ================================================= */
 
-let herkunftsOverlayId = null;
+let herkunftsOverlayId =
+  null;
 
-function openFolder(folder, herkunftId) {
+function openFolder(
+  folder,
+  herkunftId
+) {
 
   windowTitle.textContent =
     folder.name;
@@ -2273,21 +2735,39 @@ function openFolder(folder, herkunftId) {
   const infoFelder = [
 
     {
-      wert: "masse-wert",
-      card: "masse-card",
-      daten: folder.masse
+      wert:
+        "masse-wert",
+
+      card:
+        "masse-card",
+
+      daten:
+        folder.masse
+
     },
 
     {
-      wert: "material-wert",
-      card: "material-card",
-      daten: folder.material
+      wert:
+        "material-wert",
+
+      card:
+        "material-card",
+
+      daten:
+        folder.material
+
     },
 
     {
-      wert: "erstellt-wert",
-      card: "erstellt-card",
-      daten: folder.erstellt
+      wert:
+        "erstellt-wert",
+
+      card:
+        "erstellt-card",
+
+      daten:
+        folder.erstellt
+
     }
 
   ];
@@ -2305,14 +2785,12 @@ function openFolder(folder, herkunftId) {
       ).textContent =
         feld.daten || "";
 
-
       document.getElementById(
         feld.card
       ).style.display =
         feld.daten
           ? "block"
           : "none";
-
 
       if (feld.daten) {
 
@@ -2341,15 +2819,18 @@ function openFolder(folder, herkunftId) {
     herkunftId || null;
 
 
-  if (herkunftsOverlayId) {
+  if (
+    herkunftsOverlayId
+  ) {
 
     const herkunftsFenster =
       document.getElementById(
         herkunftsOverlayId
       );
 
-
-    if (herkunftsFenster) {
+    if (
+      herkunftsFenster
+    ) {
 
       herkunftsFenster.classList.remove(
         "active"
@@ -2378,22 +2859,24 @@ function detailSchliessen() {
   );
 
 
-  if (herkunftsOverlayId) {
+  if (
+    herkunftsOverlayId
+  ) {
 
     const herkunftsFenster =
       document.getElementById(
         herkunftsOverlayId
       );
 
-
-    if (herkunftsFenster) {
+    if (
+      herkunftsFenster
+    ) {
 
       herkunftsFenster.classList.add(
         "active"
       );
 
     }
-
 
     herkunftsOverlayId =
       null;
@@ -2418,74 +2901,24 @@ function detailSchliessen() {
 
 
 document
-  .querySelectorAll(".dot.red")
-  .forEach(dot => {
+  .querySelectorAll(
+    ".dot.red"
+  )
+  .forEach(
+    dot => {
 
-    dot.addEventListener(
-      "click",
-      event => {
+      dot.addEventListener(
+        "click",
+        event => {
 
-        event.stopPropagation();
+          event.stopPropagation();
 
-        const overlay =
-          dot.closest(".overlay");
-
-        if (overlay) {
-
-          if (
-            overlay ===
-            ordnerOverlay
-          ) {
-
-            detailSchliessen();
-
-          } else {
-
-            schliesseOverlay(
-              overlay
+          const overlay =
+            dot.closest(
+              ".overlay"
             );
 
-          }
-
-        }
-
-      }
-    );
-
-  });
-
-
-document
-  .querySelectorAll(".dot.yellow")
-  .forEach(dot => {
-
-    dot.addEventListener(
-      "click",
-      event => {
-
-        event.stopPropagation();
-
-        const win =
-          dot.closest(".window");
-
-        const overlay =
-          dot.closest(".overlay");
-
-
-        if (!win || !overlay) {
-
-          return;
-
-        }
-
-
-        win.classList.add(
-          "minimizing"
-        );
-
-
-        setTimeout(
-          () => {
+          if (overlay) {
 
             if (
               overlay ===
@@ -2502,47 +2935,115 @@ document
 
             }
 
+          }
 
-            win.classList.remove(
-              "minimizing"
-            );
+        }
+      );
 
-          },
-          260
-        );
-
-      }
-    );
-
-  });
+    }
+  );
 
 
 document
-  .querySelectorAll(".dot.green")
-  .forEach(dot => {
+  .querySelectorAll(
+    ".dot.yellow"
+  )
+  .forEach(
+    dot => {
 
-    dot.addEventListener(
-      "click",
-      event => {
+      dot.addEventListener(
+        "click",
+        event => {
 
-        event.stopPropagation();
+          event.stopPropagation();
 
-        const win =
-          dot.closest(".window");
+          const win =
+            dot.closest(
+              ".window"
+            );
 
+          const overlay =
+            dot.closest(
+              ".overlay"
+            );
 
-        if (win) {
+          if (
+            !win ||
+            !overlay
+          ) {
 
-          win.classList.toggle(
-            "maximized"
+            return;
+
+          }
+
+          win.classList.add(
+            "minimizing"
+          );
+
+          setTimeout(
+            () => {
+
+              if (
+                overlay ===
+                ordnerOverlay
+              ) {
+
+                detailSchliessen();
+
+              } else {
+
+                schliesseOverlay(
+                  overlay
+                );
+
+              }
+
+              win.classList.remove(
+                "minimizing"
+              );
+
+            },
+            260
           );
 
         }
+      );
 
-      }
-    );
+    }
+  );
 
-  });
+
+document
+  .querySelectorAll(
+    ".dot.green"
+  )
+  .forEach(
+    dot => {
+
+      dot.addEventListener(
+        "click",
+        event => {
+
+          event.stopPropagation();
+
+          const win =
+            dot.closest(
+              ".window"
+            );
+
+          if (win) {
+
+            win.classList.toggle(
+              "maximized"
+            );
+
+          }
+
+        }
+      );
+
+    }
+  );
 
 
 /* ================================================= */
@@ -2550,39 +3051,43 @@ document
 /* ================================================= */
 
 document
-  .querySelectorAll(".overlay")
-  .forEach(overlay => {
+  .querySelectorAll(
+    ".overlay"
+  )
+  .forEach(
+    overlay => {
 
-    overlay.addEventListener(
-      "click",
-      event => {
-
-        if (
-          event.target ===
-          overlay
-        ) {
+      overlay.addEventListener(
+        "click",
+        event => {
 
           if (
-            overlay ===
-            ordnerOverlay
+            event.target ===
+            overlay
           ) {
 
-            detailSchliessen();
+            if (
+              overlay ===
+              ordnerOverlay
+            ) {
 
-          } else {
+              detailSchliessen();
 
-            schliesseOverlay(
-              overlay
-            );
+            } else {
+
+              schliesseOverlay(
+                overlay
+              );
+
+            }
 
           }
 
         }
+      );
 
-      }
-    );
-
-  });
+    }
+  );
 
 
 /* ================================================= */
@@ -2601,7 +3106,6 @@ document.addEventListener(
       return;
 
     }
-
 
     document
       .querySelectorAll(
@@ -2635,3 +3139,4 @@ document.addEventListener(
 
 </body>
 </html>
+```
