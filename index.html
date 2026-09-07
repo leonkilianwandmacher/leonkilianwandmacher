@@ -618,6 +618,15 @@ h2:hover {
   white-space: normal;
   line-height: 1.35;
 }
+  .werk-beschreibung {
+  margin-top: 12px;
+  padding-top: 10px;
+  font-family: "schrift website";
+  font-size: 9px;
+  line-height: 1.4;
+  color: #FF0000;
+  text-align: left;
+}
 
 /* Material: Umbruch nur zwischen Wörtern, niemals innerhalb eines Wortes */
 .werk-cell .werk-info .werk-info-wert.material-wert {
@@ -2080,7 +2089,7 @@ function werkCarouselErstellen(folderListe, ziel, prevBtn, nextBtn) {
           ${folder.name}
         </span>
 
-        <div class="werk-info">
+               <        <div class="werk-info">
 
           <div>
             <span class="werk-info-label">größe</span>
@@ -2098,6 +2107,16 @@ function werkCarouselErstellen(folderListe, ziel, prevBtn, nextBtn) {
           </div>
 
         </div>
+
+        ${folder.beschreibung ? `
+          <div class="werk-beschreibung">
+            ${folder.beschreibung}
+          </div>
+        ` : ""}
+
+      
+
+      
 
       `;
 
