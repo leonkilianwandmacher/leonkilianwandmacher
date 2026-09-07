@@ -618,7 +618,8 @@ h2:hover {
   white-space: normal;
   line-height: 1.35;
 }
-  .werk-beschreibung {
+
+.werk-beschreibung {
   margin-top: 12px;
   padding-top: 10px;
   font-family: "schrift website";
@@ -1519,7 +1520,7 @@ const folders = [
     masse: "100 x 120 cm",
     material: "acryl, chalk auf leinwand",
     erstellt: "2023",
-    beschreibung: "verakuft",
+    beschreibung: "verkauft",
     images: [
       "bild5.png",
       "DSC00549.jpg",
@@ -1581,7 +1582,7 @@ const folders = [
     name: "letterfromfelix",
     masse: "90 x 120 cm",
     material: "acryl auf leinwand",
-    erstellt: "20256",
+    erstellt: "2025",
     images: [
       "IMG_0960.heic.jpg"
     ]
@@ -1672,32 +1673,6 @@ const roomFolders = [
       "Raum5.JPG"
     ]
   }
-  {
-    name: "Raum sechs",
-    images: [
-      "Bildflur2.jpg"
-      "Bildflur.jpg",
-      "Bildflur1.jpg"
-     
-    ]
-  },
-  {
-    name: "Raum sieben",
-    images: [
-      "IMG_2808.jpg"
-     
-     
-    ]
-  },
-     {
-    name: "Raum acht",
-    images: [
-      "Raum7.jpg"
-     
-     
-    ]
-  },
-
 
 ];
 
@@ -2089,7 +2064,7 @@ function werkCarouselErstellen(folderListe, ziel, prevBtn, nextBtn) {
           ${folder.name}
         </span>
 
-               <        <div class="werk-info">
+        <div class="werk-info">
 
           <div>
             <span class="werk-info-label">größe</span>
@@ -2113,10 +2088,6 @@ function werkCarouselErstellen(folderListe, ziel, prevBtn, nextBtn) {
             ${folder.beschreibung}
           </div>
         ` : ""}
-
-      
-
-      
 
       `;
 
