@@ -1742,20 +1742,38 @@ const hintergruende = [
 
 ];
 
+let letztesHintergrundbild = null;
+
 function setzeHintergrund() {
 
-  const zufallsbild =
+  let zufallsbild;
 
-    comingSoonMode
+  if (comingSoonMode) {
 
-      ? comingSoonHintergrund
+    zufallsbild =
+      comingSoonHintergrund;
 
-      : hintergruende[
+  } else {
+
+    do {
+
+      zufallsbild =
+        hintergruende[
           Math.floor(
             Math.random() *
             hintergruende.length
           )
         ];
+
+    } while (
+      zufallsbild === letztesHintergrundbild &&
+      hintergruende.length > 1
+    );
+
+  }
+
+  letztesHintergrundbild =
+    zufallsbild;
 
   document
     .querySelector(".menu-center")
@@ -1765,6 +1783,28 @@ function setzeHintergrund() {
 }
 
 setzeHintergrund();
+
+
+/* ================================================= */
+/* FENSTER SCHLIESSEN + HINTERGRUND WECHSELN */
+/* ================================================= */
+
+/*
+  wird beim schließen eines fensters
+  aufgerufen, damit im hauptmenü
+  danach ein neues zufälliges
+  hintergrundbild erscheint.
+*/
+
+function schliesseOverlay(overlay) {
+
+  overlay.classList.remove(
+    "active"
+  );
+
+  setzeHintergrund();
+
+}
 
 
 /* ================================================= */
@@ -2342,6 +2382,8 @@ function detailSchliessen() {
 
   }
 
+  setzeHintergrund();
+
 }
 
 
@@ -2376,9 +2418,7 @@ document
 
           } else {
 
-            overlay.classList.remove(
-              "active"
-            );
+            schliesseOverlay(overlay);
 
           }
 
@@ -2421,9 +2461,7 @@ document
 
           } else {
 
-            overlay.classList.remove(
-              "active"
-            );
+            schliesseOverlay(overlay);
 
           }
 
@@ -2493,9 +2531,7 @@ document
 
           } else {
 
-            overlay.classList.remove(
-              "active"
-            );
+            schliesseOverlay(overlay);
 
           }
 
@@ -2529,9 +2565,7 @@ document.addEventListener(
 
         } else {
 
-          overlay.classList.remove(
-            "active"
-          );
+          schliesseOverlay(overlay);
 
         }
 
