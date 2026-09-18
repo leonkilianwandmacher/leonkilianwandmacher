@@ -70,51 +70,36 @@ h1 {
 }
 
 .window-body.about-body {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 9/16;
-  max-height: 75vh;
-  padding: 0;
-  overflow: hidden;
-}
-
-.about-video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
+  padding: 18px;
 }
 
 .about-body .subtext {
-  position: absolute;
-
-  left: 50%;
-  top: 50%;
-
-  transform: translate(-50%, -50%);
-
-  width: 85%;
-  box-sizing: border-box;
-
-  z-index: 1;
-
-  margin: 0;
-  padding: 14px 16px;
-
-  font-size: 9px;
-  line-height: 1.4;
+  font-size: 13px;
+  line-height: 1.5;
   text-align: left;
+}
 
-  background: rgba(244, 242, 239, 0.65);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+/* ---- intro-video (oben auf der startseite) ---- */
+
+.intro-video-wrap {
+  width: 100%;
+  max-width: 260px;
+
+  margin: 0 auto 20px;
+
+  aspect-ratio: 9/16;
 
   border-radius: 8px;
+  overflow: hidden;
 
-  max-height: 40%;
-  overflow-y: auto;
+  box-shadow: 0 12px 30px rgba(0, 33, 255, 0.15);
+}
+
+.intro-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 @keyframes marquee {
@@ -129,6 +114,24 @@ h1 {
 
 a {
   color: #0021ff;
+}
+
+.fixed-name {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+
+  font-family: "schrift website";
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: #0021ff;
+
+  text-align: center;
+  white-space: nowrap;
+
+  z-index: 40;
+  pointer-events: none;
 }
 
 /* ---- h2 zwischenüberschriften (klickbar) ---- */
@@ -163,54 +166,7 @@ h2:hover {
 
 .menu-center h2 {
   color: #0021ff;
-}
-
-/* ---- menü: endlos-scroll ---- */
-
-.menu-scroll {
-  width: 100%;
-  max-width: 320px;
-
-  height: 180px;
-
-  overflow-y: scroll;
-  overflow-x: hidden;
-
-  scroll-snap-type: y mandatory;
-
-  padding: 60px 0;
-  box-sizing: content-box;
-
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-
-  touch-action: pan-y;
-}
-
-.menu-scroll::-webkit-scrollbar {
-  display: none;
-}
-
-.menu-scroll h2 {
-  height: 60px;
-  margin: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
   text-align: left;
-
-  scroll-snap-align: center;
-  scroll-snap-stop: always;
-
-  cursor: pointer;
-  user-select: none;
-
-  transition: opacity 0.15s ease;
-}
-
-.menu-scroll h2:hover {
-  opacity: 0.7;
 }
 
 .subtext {
@@ -1442,8 +1398,7 @@ h2:hover {
   /* ----------------------------------------- */
 
   .about-body .subtext {
-    font-size: 8px;
-    width: 88%;
+    font-size: 12px;
   }
 
 }
@@ -1461,6 +1416,29 @@ h2:hover {
   alt=""
 >
 
+<div class="fixed-name">
+  leon kilian wandmacher
+</div>
+
+<div class="intro-video-wrap">
+
+  <video
+    class="intro-video"
+    autoplay
+    muted
+    loop
+    playsinline
+  >
+
+    <source
+      src="video.MP4"
+      type="video/mp4"
+    >
+
+  </video>
+
+</div>
+
 <div class="marquee-wrap">
 
   <h1>
@@ -1472,7 +1450,29 @@ h2:hover {
 
 <div class="menu-center">
 
-  <div class="menu-scroll" id="menu-scroll"></div>
+  <h2 data-popup="about-overlay">
+    über mich
+  </h2>
+
+  <h2 data-popup="werke-overlay">
+    werke
+  </h2>
+
+  <h2 data-popup="kaufen-overlay">
+    wie kaufe ich kunst
+  </h2>
+
+  <h2 data-popup="rooms-overlay">
+    rooms
+  </h2>
+
+  <h2 data-popup="kontakt-overlay">
+    kontakt
+  </h2>
+
+  <h2 data-popup="wichtig-overlay">
+    wichtig
+  </h2>
 
 </div>
 
@@ -1504,22 +1504,6 @@ h2:hover {
 
 
     <div class="window-body about-body">
-
-      <video
-        class="about-video"
-        autoplay
-        muted
-        loop
-        playsinline
-      >
-
-        <source
-          src="video.MP4"
-          type="video/mp4"
-        >
-
-      </video>
-
 
       <p class="subtext">
 
@@ -2053,221 +2037,25 @@ function openPopupById(popupId) {
 
 
 /* ================================================= */
-/* MENÜ: ENDLOS-SCROLL                               */
+/* MENÜ: KLICK                                        */
 /* ================================================= */
 
-const menuItemsData = [
+document
+  .querySelectorAll("[data-popup]")
+  .forEach(item => {
 
-  { label: "über mich", popup: "about-overlay" },
-  { label: "werke", popup: "werke-overlay" },
-  { label: "wie kaufe ich kunst", popup: "kaufen-overlay" },
-  { label: "rooms", popup: "rooms-overlay" },
-  { label: "kontakt", popup: "kontakt-overlay" },
-  { label: "wichtig", popup: "wichtig-overlay" }
+    item.addEventListener(
+      "click",
+      () => {
 
-];
+        openPopupById(
+          item.dataset.popup
+        );
 
-const menuItemHeight = 60;
-const menuSetsCount = 9;
-const menuOriginalLength = menuItemsData.length;
-const menuMiddleSet = Math.floor(menuSetsCount / 2);
-
-let menuFullList = [];
-
-for (let s = 0; s < menuSetsCount; s++) {
-
-  menuFullList =
-    menuFullList.concat(menuItemsData);
-
-}
-
-const menuScroll =
-  document.getElementById("menu-scroll");
-
-menuFullList.forEach(item => {
-
-  const el =
-    document.createElement("h2");
-
-  el.textContent =
-    item.label;
-
-  el.dataset.popup =
-    item.popup;
-
-  el.addEventListener(
-    "click",
-    () => {
-
-      openPopupById(item.popup);
-
-      letzterGeoeffneterPopup =
-        item.popup;
-
-    }
-  );
-
-  menuScroll.appendChild(el);
-
-});
-
-
-let letzterGeoeffneterPopup =
-  null;
-
-let menuScrollTimeout =
-  null;
-
-
-function menuZentrierterIndex() {
-
-  const roh =
-    menuScroll.scrollTop /
-    menuItemHeight;
-
-  return Math.max(
-
-    0,
-
-    Math.min(
-      menuFullList.length - 1,
-      Math.round(roh)
-    )
-
-  );
-
-}
-
-
-function menuOptikAktualisieren() {
-
-  const roh =
-    menuScroll.scrollTop /
-    menuItemHeight;
-
-  const kinder =
-    menuScroll.children;
-
-  for (
-    let i = 0;
-    i < kinder.length;
-    i++
-  ) {
-
-    const distanz =
-      Math.abs(i - roh);
-
-    kinder[i].style.opacity =
-      Math.max(
-        0.25,
-        1 - distanz * 0.45
-      );
-
-  }
-
-}
-
-
-function menuTeleportFallsNoetig() {
-
-  const index =
-    menuZentrierterIndex();
-
-  const aktuellesSet =
-    Math.floor(
-      index / menuOriginalLength
+      }
     );
 
-  if (
-    aktuellesSet <= 0 ||
-    aktuellesSet >= menuSetsCount - 1
-  ) {
-
-    const indexImSet =
-      index % menuOriginalLength;
-
-    const neuerIndex =
-      menuMiddleSet *
-        menuOriginalLength +
-      indexImSet;
-
-    menuScroll.style.scrollBehavior =
-      "auto";
-
-    menuScroll.scrollTop =
-      neuerIndex * menuItemHeight;
-
-    requestAnimationFrame(() => {
-
-      menuScroll.style.scrollBehavior =
-        "";
-
-    });
-
-  }
-
-}
-
-
-function menuScrollAbgeschlossen() {
-
-  menuTeleportFallsNoetig();
-
-
-  const index =
-    menuZentrierterIndex();
-
-  const item =
-    menuFullList[index];
-
-  if (!item) {
-
-    return;
-  }
-
-
-  if (
-    item.popup !==
-    letzterGeoeffneterPopup
-  ) {
-
-    openPopupById(item.popup);
-
-    letzterGeoeffneterPopup =
-      item.popup;
-
-  }
-
-}
-
-
-menuScroll.addEventListener(
-  "scroll",
-  () => {
-
-    menuOptikAktualisieren();
-
-
-    clearTimeout(
-      menuScrollTimeout
-    );
-
-    menuScrollTimeout =
-      setTimeout(
-        menuScrollAbgeschlossen,
-        160
-      );
-
-  }
-);
-
-
-menuScroll.scrollTop =
-  menuMiddleSet *
-  menuOriginalLength *
-  menuItemHeight;
-
-menuOptikAktualisieren();
+  });
 
 
 /* ================================================= */
@@ -2594,12 +2382,12 @@ function setzeHintergrund() {
 }
 
 
-setzeHintergrund();
-
-setInterval(
-  setzeHintergrund,
-  1200
-);
+// vorerst deaktiviert – hintergrundbilder ausgeblendet
+// setzeHintergrund();
+// setInterval(
+//   setzeHintergrund,
+//   1200
+// );
 
 
 /* ================================================= */
@@ -2611,9 +2399,6 @@ function schliesseOverlay(overlay) {
   overlay.classList.remove(
     "active"
   );
-
-  letzterGeoeffneterPopup =
-    null;
 
 }
 
@@ -3370,7 +3155,7 @@ function detailSchliessen() {
   }
 
 
-  setzeHintergrund();
+  // setzeHintergrund(); // vorerst deaktiviert
 
 }
 
