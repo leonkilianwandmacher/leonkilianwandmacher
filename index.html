@@ -235,9 +235,6 @@ a{color:var(--blau)}
 </div>
 
 
-
-
-
 <!-- ROOMS -->
 <div class="overlay" id="rooms-overlay">
   <div class="window">
@@ -248,12 +245,16 @@ a{color:var(--blau)}
 
 
 <script>
+let herkunftsOverlayId = null;
+
 /* ---------- popup-system ---------- */
 function openPopupById(popupId) {
   const popup = document.getElementById(popupId);
   if (!popup) return;
   document.getElementById("werk-preview").classList.remove("active");
-  document.querySelectorAll(".overlay.active").forEach(o => { if (o !== popup) o.classList.remove("active"); });
+  document.querySelectorAll(".overlay.active").forEach(o => o.classList.remove("active"));
+  popup.querySelectorAll(".window").forEach(w => { w.scrollTop = 0; w.classList.remove("maximized", "minimizing"); });
+  void popup.offsetWidth;
   popup.classList.add("active");
 }
 /* jeder menüpunkt hat eine eigene adresse (#werke, #kontakt, ...) */
@@ -298,29 +299,29 @@ const folders = [
     images: ["bild3.png", "DSC00592.jpg", "DSC00589.jpg"] },
   { name: "snoopy", masse: "100 x 120 cm", material: "acryl, chalk auf leinwand", erstellt: "2024", beschreibung: "verkauft",
     images: ["snoopy.png"] },
-  { name: "vergissmichnichtzuschnell", masse: "90 x 120 cm", material: "acryl, chalk auf leinwand", erstellt: "2026",beschreibung: "verkauft",
+  { name: "vergissmichnichtzuschnell", masse: "90 x 120 cm", material: "acryl, chalk auf leinwand", erstellt: "2026", beschreibung: "verkauft",
     images: ["vergissmichnichtzuschnell.png", "vergissmichnichtzuschnell2.JPG", "vergissmichnichtzuschnell3.JPG"] },
-  { name: "notdoingwell", masse: "90 x 120 cm", material: "acryl, chalk auf leinwand", erstellt: "2025",beschreibung: "verkauft",
+  { name: "notdoingwell", masse: "90 x 120 cm", material: "acryl, chalk auf leinwand", erstellt: "2025", beschreibung: "verkauft",
     images: ["Bild6.png", "DSC00526.jpg", "DSC00538.jpg"] },
   { name: "feverdream", masse: "50 x 70 cm", material: "acryl auf leinwand", erstellt: "2024",
     images: ["IMG_0976.heic.jpg"] },
   { name: "letterfromfelix", masse: "90 x 120 cm", material: "acryl auf leinwand", erstellt: "2025",
     images: ["felix.png"] },
-  { name: "schäfchenzählen", masse: "90 x 120 cm", material: "acryl auf leinwand", erstellt: "2026",beschreibung: "verkauft",
+  { name: "schäfchenzählen", masse: "90 x 120 cm", material: "acryl auf leinwand", erstellt: "2026", beschreibung: "verkauft",
     images: ["schaf.png"] },
   { name: "hugme", masse: "100 x 110 cm", material: "acryl auf leinwand", erstellt: "2025",
     images: ["hugme.png"] },
-  { name: "küssenwiruns", masse: "120 x 90 cm", material: "acryl, chalk auf leinwand", erstellt: "2025",beschreibung: "verkauft",
+  { name: "küssenwiruns", masse: "120 x 90 cm", material: "acryl, chalk auf leinwand", erstellt: "2025", beschreibung: "verkauft",
     images: ["kuss.png"] },
   { name: "erinnerunganblau", masse: "90 x 120 cm", material: "acryl, chalk auf leinwand", erstellt: "2026",
-    images: ["einnerunganblau.png"] }
-   { name: "uberX", masse: "90 x 120 cm", material: "acryl, chalk auf leinwand", erstellt: "2024",
-    images: ["levinliam.png"] }
-   { name: "schiffssbrüchig", masse: "90 x 120 cm", material: "acryl, chalk auf leinwand", erstellt: "2025",
-    images: ["schiffsbrüchig.png"] }
-   { name: "unsortiert", masse: "90 x 120 cm", material: "acryl, chalk auf leinwand", erstellt: "2025",
-    images: ["unsortiert.png"] }
-   { name: "patchworkhug", masse: "120 x 90 cm", material: "acryl, chalk auf leinwand", erstellt: "2026",
+    images: ["einnerunganblau.png"] },
+  { name: "uberX", masse: "90 x 120 cm", material: "acryl, chalk auf leinwand", erstellt: "2024",
+    images: ["levinliam.png"] },
+  { name: "schiffssbrüchig", masse: "90 x 120 cm", material: "acryl, chalk auf leinwand", erstellt: "2025",
+    images: ["schiffsbrüchig.png"] },
+  { name: "unsortiert", masse: "90 x 120 cm", material: "acryl, chalk auf leinwand", erstellt: "2025",
+    images: ["unsortiert.png"] },
+  { name: "patchworkhug", masse: "120 x 90 cm", material: "acryl, chalk auf leinwand", erstellt: "2026",
     images: ["patchworkhug.png"] }
 ];
 
@@ -407,7 +408,6 @@ document.getElementById("kontakt-form").addEventListener("submit", event => {
 /* ---------- bilder ---------- */
 let aktuellesBildIndex = 0;
 let aktuellerOrdner = null;
-let herkunftsOverlayId = null;
 const bildPrevBtn = document.getElementById("bild-prev");
 const bildNextBtn = document.getElementById("bild-next");
 const imageCounter = document.getElementById("image-counter");
