@@ -83,19 +83,15 @@ a{color:var(--blau)}
   justify-content:center;
   padding:18px;
 }
-.werke-top img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  display:block;
-}
 
-/* Unteres Raster */
-.werke-paare{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  margin-top:28px;
-  border-top:1px solid var(--linie);
+.werke-top img,
+.werke-paare img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transform: scale(1.05);
 }
 .werke-paare .werk{
   display:flex;
