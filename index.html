@@ -7,7 +7,7 @@
 <style>
 @font-face{font-family:"handschrift leon-kilian";src:url("handschrift leon-kilian.ttf")}
 @font-face{font-family:"schrift website";src:url("schrift website.otf")}
-@font-face{font-family:"bold font";src:url("fontbold.ttf")}
+
 
 :root{--blau:#0021ff;--papier:#f7f8f2;--linie:rgba(0,33,255,.28)}
 *{box-sizing:border-box}
@@ -31,7 +31,7 @@ a{color:var(--blau)}
 .foot{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;font-size:10px;line-height:2;margin-bottom:26px}
 .foot span[data-popup]{display:block;cursor:pointer}
 .foot span[data-popup]:hover{opacity:.6}
-.wordmark{font-family:"bold font","schrift website";font-weight:900;font-size:clamp(54px,17vw,170px);line-height:.9;text-transform:uppercase;margin:0;letter-spacing:-.01em;word-break:break-word}
+.wordmark{font-family:"schrift website";font-weight:900;font-size:clamp(54px,17vw,170px);line-height:.9;text-transform:uppercase;margin:0;letter-spacing:-.01em;word-break:break-word}
 
 /* ---------- popups ---------- */
 .overlay{position:fixed;inset:0;background:rgba(0,33,255,.15);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .22s ease;z-index:50}
