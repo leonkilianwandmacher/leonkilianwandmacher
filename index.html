@@ -269,9 +269,28 @@ function openPopupById(popupId) {
   document.querySelectorAll(".overlay.active").forEach(o => { if (o !== popup) o.classList.remove("active"); });
   popup.classList.add("active");
 }
+/* jeder menüpunkt hat eine eigene adresse (#werke, #kontakt, ...) */
 document.querySelectorAll("[data-popup]").forEach(item => {
-  item.addEventListener("click", () => openPopupById(item.dataset.popup));
+  item.addEventListener("click", () => {
+    const id = item.dataset.popup;
+    const name = id.replace("-overlay", "");
+    if (location.hash === "#" + name) openPopupById(id);
+    else location.hash = name;
+  });
 });
+
+function ausHash() {
+  const name = location.hash.slice(1);
+  const ziel = name && name !== "ordner-detail" ? document.getElementById(name + "-overlay") : null;
+  if (ziel && ziel.classList.contains("overlay")) {
+    herkunftsOverlayId = null;
+    openPopupById(name + "-overlay");
+  } else {
+    herkunftsOverlayId = null;
+    document.querySelectorAll(".overlay.active").forEach(o => o.classList.remove("active"));
+  }
+}
+window.addEventListener("hashchange", ausHash);
 
 /* ---------- daten ---------- */
 const folders = [
@@ -283,19 +302,19 @@ const folders = [
     images: ["bild3.png", "DSC00592.jpg", "DSC00589.jpg"] },
   { name: "snoopy", masse: "100 x 120 cm", material: "acryl, chalk auf leinwand", erstellt: "2024", beschreibung: "verkauft",
     images: ["snoopy.png"] },
-  { name: "vergissmichnichtzuschnell", masse: "90 x 120 cm", material: "acryl, chalk auf leinwand", erstellt: "2026", beschreibung: "verkauft"
+  { name: "vergissmichnichtzuschnell", masse: "90 x 120 cm", material: "acryl, chalk auf leinwand", erstellt: "2026",
     images: ["vergissmichnichtzuschnell.png", "vergissmichnichtzuschnell2.JPG", "vergissmichnichtzuschnell3.JPG"] },
-  { name: "notdoingwell", masse: "90 x 120 cm", material: "acryl, chalk auf leinwand", erstellt: "2025", beschreibung: "verkauft"
+  { name: "notdoingwell", masse: "90 x 120 cm", material: "acryl, chalk auf leinwand", erstellt: "2025",
     images: ["Bild6.png", "DSC00526.jpg", "DSC00538.jpg"] },
-  { name: "feverdream", masse: "50 x 70 cm", material: "acryl auf leinwand", erstellt: "2024",beschreibung: "verkauft"
+  { name: "feverdream", masse: "50 x 70 cm", material: "acryl auf leinwand", erstellt: "2024",
     images: ["IMG_0976.heic.jpg"] },
   { name: "letterfromfelix", masse: "90 x 120 cm", material: "acryl auf leinwand", erstellt: "2025",
     images: ["felix.png"] },
-  { name: "schäfchenzählen", masse: "90 x 120 cm", material: "acryl auf leinwand", erstellt: "2026", beschreibung: "verkauft"
+  { name: "schäfchenzählen", masse: "90 x 120 cm", material: "acryl auf leinwand", erstellt: "2026",
     images: ["schaf.png"] },
   { name: "hugme", masse: "100 x 110 cm", material: "acryl auf leinwand", erstellt: "2025",
     images: ["hugme.png"] },
-  { name: "küssenwiruns", masse: "120 x 90 cm", material: "acryl, chalk auf leinwand", erstellt: "2025", beschreibung: "verkauft"
+  { name: "küssenwiruns", masse: "120 x 90 cm", material: "acryl, chalk auf leinwand", erstellt: "2025",
     images: ["kuss.png"] },
   { name: "erinnerunganblau", masse: "90 x 120 cm", material: "acryl, chalk auf leinwand", erstellt: "2026",
     images: ["einnerunganblau.png"] }
@@ -445,7 +464,9 @@ function detailSchliessen() {
   }
 }
 function schliesse(overlay) {
-  if (overlay === ordnerOverlay) detailSchliessen(); else schliesseOverlay(overlay);
+  if (overlay === ordnerOverlay) { detailSchliessen(); return; }
+  schliesseOverlay(overlay);
+  if (location.hash) history.pushState(null, "", location.pathname + location.search);
 }
 
 /* ---------- fenster-buttons ---------- */
@@ -484,6 +505,8 @@ document.addEventListener("keydown", e => {
   if (e.key !== "Escape") return;
   document.querySelectorAll(".overlay.active").forEach(schliesse);
 });
+/* beim laden: adresse mit #werke etc. direkt öffnen */
+if (location.hash) ausHash();
 </script>
 
 </body>
