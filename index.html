@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>leon-kilian</title>
+
 <style>
 @font-face{font-family:"handschrift leon-kilian";src:url("handschrift leon-kilian.ttf")}
 @font-face{font-family:"schrift website";src:url("schrift website.otf")}
@@ -14,23 +16,15 @@
 body{margin:0;background:var(--papier);color:var(--blau);font-family:"schrift website";overflow-x:hidden}
 a{color:var(--blau)}
 
-/* ---------- homescreen-video ---------- */
 .bg-video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1}
 .panel{display:block;width:100%;max-width:100%;text-align:center;padding:0}
-.page{width:100%;min-height:100vh;display:flex;align-items:center;justify-content:center;padding-top:24px!important;padding-bottom:24px!important}
-
-/* ---------- hauptmenü ---------- */
-.page{max-width:1000px;margin:0 auto;padding:48px 20px 24px}
-
+.page{width:100%;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:48px 20px 24px;max-width:1000px;margin:0 auto}
 
 .intro{font-family:"handschrift leon-kilian";font-weight:normal;font-size:clamp(34px,7vw,80px);line-height:1.1;margin:0 0 26px;text-align:center;width:100%}
-
 .menu{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:0}
 .menu h2{margin:0;font:inherit;font-size:14px;padding:7px 18px;border:1px solid var(--blau);border-radius:20px;cursor:pointer;background:transparent;transition:background .18s,color .18s}
 .menu h2:hover{background:var(--blau);color:var(--papier)}
 
-
-/* ---------- popups ---------- */
 .overlay{position:fixed;inset:0;background:rgba(0,33,255,.15);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .22s ease;z-index:50}
 .overlay.active{opacity:1;pointer-events:auto}
 .window{width:min(560px,88vw);max-height:80vh;overflow-y:auto;background:var(--papier);border-radius:10px;box-shadow:0 24px 60px rgba(0,0,0,.3);transform:translateY(24px) scale(.94);transition:transform .28s cubic-bezier(.2,.9,.25,1.2),opacity .22s ease,width .28s ease,max-height .28s ease}
@@ -46,11 +40,9 @@ a{color:var(--blau)}
 .titlebar span{margin-left:8px;font-size:12px;opacity:.6}
 .window-body{padding:18px;min-width:0}
 .subtext{font-size:16px}
-
-/* über mich */
 #about-overlay .subtext{font-size:14px;line-height:1.5}
 
-/* ---------- werke im neuen layout ---------- */
+/* Werke */
 .werke-banner{display:block;width:100%;height:auto;aspect-ratio:2560/1060;object-fit:cover;margin-bottom:22px}
 .werk{cursor:pointer;min-width:0;transition:opacity .18s}
 .werk:hover{opacity:.65}
@@ -58,17 +50,81 @@ a{color:var(--blau)}
 .sub{font-size:9px;line-height:1.4;opacity:.75}
 .sub.verkauft{color:#f00;opacity:1}
 
-.werke-top{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.werke-top .bild{aspect-ratio:3/4;background:#ecebe4;border-radius:10px;overflow:hidden}
-.werke-top img{width:100%;height:100%;object-fit:cover;display:block}
+/* Obere horizontale Galerie */
+.werke-top{
+  display:flex;
+  gap:16px;
+  width:100%;
+  overflow-x:auto;
+  overflow-y:hidden;
+  padding:2px 0 14px;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-x:contain;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(0,33,255,.28) transparent;
+}
+.werke-top .werk{
+  flex:0 0 calc((100% - 32px) / 3);
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  scroll-snap-align:start;
+}
+.werke-top .bild{
+  width:100%;
+  aspect-ratio:0.92 / 1;
+  background:#ecebe4;
+  border-radius:20px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+.werke-top img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
 
-.werke-paare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:28px;border-top:1px solid var(--linie)}
-.werke-paare .werk{display:flex;flex-direction:column;justify-content:space-between;min-height:420px;padding:14px 12px 12px;border-bottom:1px solid var(--linie)}
+/* Unteres Raster */
+.werke-paare{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  margin-top:28px;
+  border-top:1px solid var(--linie);
+}
+.werke-paare .werk{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  min-height:420px;
+  padding:14px 12px 12px;
+  border-bottom:1px solid var(--linie);
+}
 .werke-paare .werk:nth-child(odd){border-right:1px solid var(--linie)}
-.werke-paare .bild{flex:1;display:flex;align-items:center;justify-content:center;padding:10px 0 18px}
-.werke-paare img{max-width:72%;max-height:300px;width:auto;height:auto;display:block}
+.werke-paare .bild{
+  width:100%;
+  height:320px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 0 18px;
+  background:#ecebe4;
+  border-radius:10px;
+  overflow:hidden;
+}
+.werke-paare img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
 
-/* detailfenster */
+/* Detailfenster */
 .image-viewer-wrap{display:flex;align-items:center;gap:8px;padding:6px 0 10px}
 .image-grid{flex:1;min-width:0;display:flex;justify-content:center}
 .image-grid img{display:block;width:100%;max-width:420px;height:auto;object-fit:contain;background:#fff;padding:10px;border-radius:4px;box-shadow:0 18px 40px rgba(0,33,255,.18)}
@@ -80,14 +136,14 @@ a{color:var(--blau)}
 .masse-label{display:block;font-size:9px;opacity:.6;margin-bottom:4px}
 .masse-wert{display:block;font-family:"handschrift leon-kilian";font-size:clamp(11px,1.6vw,16px);line-height:1.2}
 
-/* rooms */
+/* Rooms */
 .werk-list{display:flex;flex-direction:column;align-items:center;gap:16px;padding:6px 4px 10px}
 .werk-item{font-family:"handschrift leon-kilian";font-size:24px;text-align:center;cursor:pointer;transition:opacity .18s}
 .werk-item:hover{opacity:.55}
 .werk-preview{position:fixed;width:150px;aspect-ratio:3/4;object-fit:cover;border-radius:6px;box-shadow:0 16px 34px rgba(0,0,0,.3);pointer-events:none;opacity:0;transition:opacity .15s;z-index:100}
 .werk-preview.active{opacity:1}
 
-/* kontakt */
+/* Kontakt */
 #kontakt-overlay .window-body{padding:24px;background:repeating-linear-gradient(90deg,#cfc49a,#cfc49a 22px,var(--blau) 22px,var(--blau) 44px)}
 .kontakt-card{background:#f4f2ef;border-radius:4px;padding:30px 26px;box-shadow:0 12px 30px rgba(0,0,0,.2)}
 .kontakt-card h3{font-family:"handschrift leon-kilian";font-size:26px;margin:0 0 22px;text-align:center}
@@ -98,25 +154,32 @@ a{color:var(--blau)}
 .kontakt-submit{display:block;margin:22px auto 4px;padding:10px 26px;border:1px solid var(--blau);border-radius:20px;background:var(--blau);color:#f4f2ef;font-family:"schrift website";cursor:pointer}
 .kontakt-alt{text-align:center;margin-top:18px;font-size:13px}
 
-/* ---------- responsive ---------- */
+/* Responsive */
+@media (min-width:601px) and (max-width:900px){
+  .werke-top .werk{flex-basis:calc((100% - 16px) / 2)}
+  .werke-paare .bild{height:280px}
+}
 @media (max-width:600px){
   .page{padding:0 16px 20px}
   .overlay{padding:10px;align-items:flex-start;overflow-y:auto}
   .window,#werke-overlay .window,#ordner-detail-overlay .window{width:92vw;max-width:92vw;max-height:calc(100vh - 20px);margin:10px auto;overflow-x:hidden}
   .window-body{padding:12px}
-  .werke-top{gap:5px}
+  .werke-top{gap:10px;padding-bottom:10px}
+  .werke-top .werk{flex-basis:84%}
+  .werke-top .bild{aspect-ratio:0.92 / 1;padding:14px;border-radius:16px}
+  .werke-paare{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:20px}
+  .werke-paare .werk{min-height:250px;padding:10px 8px}
+  .werke-paare .bild{height:190px;padding:8px 0}
   .cap{font-size:9px;flex-direction:column;gap:0}
   .sub{font-size:8px}
-  .werke-paare .werk{min-height:260px;padding:10px 8px}
-  .werke-paare img{max-width:90%;max-height:190px}
   .carousel-arrow{width:26px;height:26px;font-size:13px}
   .image-grid img{padding:7px}
   .masse-wert{font-size:11px}
 }
 </style>
 </head>
-<body>
 
+<body>
 <img class="werk-preview" id="werk-preview" alt="">
 
 <video class="bg-video" autoplay muted loop playsinline>
@@ -124,21 +187,17 @@ a{color:var(--blau)}
 </video>
 
 <div class="page">
-<div class="panel">
-
-  <h1 class="intro">leon kilian wandmacher</h1>
-
-  <div class="menu">
-    <h2 data-popup="about-overlay">über mich</h2>
-    <h2 data-popup="werke-overlay">werke</h2>
-    <h2 data-popup="kaufen-overlay">wie kaufe ich kunst</h2>
-    <h2 data-popup="rooms-overlay">rooms</h2>
-    <h2 data-popup="kontakt-overlay">kontakt</h2>
-   
+  <div class="panel">
+    <h1 class="intro">leon kilian wandmacher</h1>
+    <div class="menu">
+      <h2 data-popup="about-overlay">über mich</h2>
+      <h2 data-popup="werke-overlay">werke</h2>
+      <h2 data-popup="kaufen-overlay">wie kaufe ich kunst</h2>
+      <h2 data-popup="rooms-overlay">rooms</h2>
+      <h2 data-popup="kontakt-overlay">kontakt</h2>
+    </div>
   </div>
 </div>
-</div>
-
 
 <!-- ÜBER MICH -->
 <div class="overlay" id="about-overlay">
@@ -165,7 +224,6 @@ a{color:var(--blau)}
   </div>
 </div>
 
-
 <!-- WERKE -->
 <div class="overlay" id="werke-overlay">
   <div class="window">
@@ -177,7 +235,6 @@ a{color:var(--blau)}
     </div>
   </div>
 </div>
-
 
 <!-- DETAILFENSTER -->
 <div class="overlay" id="ordner-detail-overlay">
@@ -199,7 +256,6 @@ a{color:var(--blau)}
   </div>
 </div>
 
-
 <!-- KONTAKT -->
 <div class="overlay" id="kontakt-overlay">
   <div class="window">
@@ -219,7 +275,6 @@ a{color:var(--blau)}
   </div>
 </div>
 
-
 <!-- WIE KAUFE ICH KUNST -->
 <div class="overlay" id="kaufen-overlay">
   <div class="window">
@@ -234,7 +289,6 @@ a{color:var(--blau)}
   </div>
 </div>
 
-
 <!-- ROOMS -->
 <div class="overlay" id="rooms-overlay">
   <div class="window">
@@ -243,21 +297,23 @@ a{color:var(--blau)}
   </div>
 </div>
 
-
 <script>
 let herkunftsOverlayId = null;
 
-/* ---------- popup-system ---------- */
+/* Popup-System */
 function openPopupById(popupId) {
   const popup = document.getElementById(popupId);
   if (!popup) return;
   document.getElementById("werk-preview").classList.remove("active");
   document.querySelectorAll(".overlay.active").forEach(o => o.classList.remove("active"));
-  popup.querySelectorAll(".window").forEach(w => { w.scrollTop = 0; w.classList.remove("maximized", "minimizing"); });
+  popup.querySelectorAll(".window").forEach(w => {
+    w.scrollTop = 0;
+    w.classList.remove("maximized", "minimizing");
+  });
   void popup.offsetWidth;
   popup.classList.add("active");
 }
-/* jeder menüpunkt hat eine eigene adresse (#werke, #kontakt, ...) */
+
 document.querySelectorAll("[data-popup]").forEach(item => {
   item.addEventListener("click", () => {
     const id = item.dataset.popup;
@@ -268,7 +324,6 @@ document.querySelectorAll("[data-popup]").forEach(item => {
   });
 });
 
-/* adresse nur als zugabe: das fenster öffnet auch, wenn der browser sie blockiert */
 function adresseSetzen(hash) {
   try {
     if (location.hash !== hash) history.pushState(null, "", hash || location.pathname + location.search);
@@ -289,7 +344,7 @@ function ausHash() {
 window.addEventListener("hashchange", ausHash);
 window.addEventListener("popstate", ausHash);
 
-/* ---------- daten ---------- */
+/* Werke-Daten */
 const folders = [
   { name: "whydoyouthinkwemet", masse: "90 x 120 cm", material: "acryl, chalk auf leinwand", erstellt: "2026",
     images: ["whydoyouthinkwemet.png", "whydoyouthinkwemet4.JPG", "whydoyouthinkwemet3.JPG"] },
@@ -301,9 +356,9 @@ const folders = [
     images: ["snoopy.png"] },
   { name: "vergissmichnichtzuschnell", masse: "90 x 120 cm", material: "acryl, chalk auf leinwand", erstellt: "2026", beschreibung: "verkauft",
     images: ["vergissmichnichtzuschnell.png", "vergissmichnichtzuschnell2.JPG", "vergissmichnichtzuschnell3.JPG"] },
-  { name: "notdoingwell", masse: "90 x 120 cm", material: "acryl, chalk auf leinwand", erstellt: "2025", beschreibung: "verkauft",
-    images: ["Bild6.png", "DSC00526.jpg", "DSC00538.jpg"] },
-  { name: "feverdream", masse: "50 x 70 cm", material: "acryl auf leinwand", erstellt: "2024",beschreibung: "verkauft",
+  { name: "notdoingwell", masse: "90 x 120 cm", material: "acryl, chalk auf leinwand", erstellt: "2025",
+    beschreibung: "verkauft", images: ["Bild6.png", "DSC00526.jpg", "DSC00538.jpg"] },
+  { name: "feverdream", masse: "50 x 70 cm", material: "acryl auf leinwand", erstellt: "2024", beschreibung: "verkauft",
     images: ["pink.png"] },
   { name: "letterfromfelix", masse: "90 x 120 cm", material: "acryl auf leinwand", erstellt: "2025",
     images: ["felix.png"] },
@@ -340,23 +395,6 @@ const ordnerOverlay = document.getElementById("ordner-detail-overlay");
 const windowTitle = document.getElementById("window-title");
 const imageGrid = document.getElementById("image-grid");
 
-/* ---------- wechselnder hintergrund: pausiert ----------
-   zum wieder-aktivieren: ".menu-center" im html ergänzen und
-   die letzte zeile (setInterval) einkommentieren. */
-const hintergruende = ["kaffee.jpg", "hintergrund.jpg", "seemann.png", "palette.png", "eis.png", "pinsel.png", "wäsche.png"];
-let letztesHintergrundbild = null;
-function setzeHintergrund() {
-  const ziel = document.querySelector(".menu-center");
-  if (!ziel) return;
-  let bild;
-  do { bild = hintergruende[Math.floor(Math.random() * hintergruende.length)]; }
-  while (bild === letztesHintergrundbild && hintergruende.length > 1);
-  letztesHintergrundbild = bild;
-  ziel.style.backgroundImage = `url("${bild}")`;
-}
-// setInterval(setzeHintergrund, 1200);
-
-/* ---------- werke im neuen layout ---------- */
 function werkKarte(folder) {
   const cell = document.createElement("div");
   cell.className = "werk";
@@ -371,11 +409,25 @@ function werkKarte(folder) {
   cell.addEventListener("click", () => openFolder(folder, "werke-overlay"));
   return cell;
 }
+
 const werkeTop = document.getElementById("werke-top");
 const werkePaare = document.getElementById("werke-paare");
-folders.forEach((folder, i) => (i < 3 ? werkeTop : werkePaare).appendChild(werkKarte(folder)));
 
-/* ---------- rooms ---------- */
+/* Oben Slider, darunter Raster */
+folders.forEach(folder => {
+  werkeTop.appendChild(werkKarte(folder));
+  werkePaare.appendChild(werkKarte(folder));
+});
+
+/* Mausrad/Trackpad im oberen Slider */
+werkeTop.addEventListener("wheel", event => {
+  if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
+    event.preventDefault();
+    werkeTop.scrollBy({ left: event.deltaY, behavior: "smooth" });
+  }
+}, { passive: false });
+
+/* Rooms */
 (function () {
   const preview = document.getElementById("werk-preview");
   const ziel = document.getElementById("rooms-desktop");
@@ -394,7 +446,7 @@ folders.forEach((folder, i) => (i < 3 ? werkeTop : werkePaare).appendChild(werkK
   });
 })();
 
-/* ---------- kontaktformular ---------- */
+/* Kontaktformular */
 document.getElementById("kontakt-form").addEventListener("submit", event => {
   event.preventDefault();
   const name = document.getElementById("kontakt-name").value;
@@ -405,7 +457,7 @@ document.getElementById("kontakt-form").addEventListener("submit", event => {
   window.location.href = `mailto:leonkilianwandmacher@gmail.com?subject=${betreff}&body=${body}`;
 });
 
-/* ---------- bilder ---------- */
+/* Detailbilder */
 let aktuellesBildIndex = 0;
 let aktuellerOrdner = null;
 const bildPrevBtn = document.getElementById("bild-prev");
@@ -425,9 +477,18 @@ function bildRendern() {
   bildPrevBtn.disabled = aktuellesBildIndex === 0;
   bildNextBtn.disabled = aktuellesBildIndex === anzahl - 1;
 }
-bildPrevBtn.addEventListener("click", () => { if (aktuellesBildIndex > 0) { aktuellesBildIndex--; bildRendern(); } });
+
+bildPrevBtn.addEventListener("click", () => {
+  if (aktuellesBildIndex > 0) {
+    aktuellesBildIndex--;
+    bildRendern();
+  }
+});
 bildNextBtn.addEventListener("click", () => {
-  if (aktuellerOrdner && aktuellesBildIndex < aktuellerOrdner.images.length - 1) { aktuellesBildIndex++; bildRendern(); }
+  if (aktuellerOrdner && aktuellesBildIndex < aktuellerOrdner.images.length - 1) {
+    aktuellesBildIndex++;
+    bildRendern();
+  }
 });
 
 function openFolder(folder, herkunftId) {
@@ -441,23 +502,28 @@ function openFolder(folder, herkunftId) {
     { wert: "material-wert", card: "material-card", daten: folder.material },
     { wert: "erstellt-wert", card: "erstellt-card", daten: folder.erstellt }
   ];
+
   let mindestensEins = false;
   felder.forEach(f => {
     document.getElementById(f.wert).textContent = f.daten || "";
     document.getElementById(f.card).style.display = f.daten ? "block" : "none";
     if (f.daten) mindestensEins = true;
   });
-  document.getElementById("masse-wrap").style.display = mindestensEins ? "grid" : "none";
 
+  document.getElementById("masse-wrap").style.display = mindestensEins ? "grid" : "none";
   herkunftsOverlayId = herkunftId || null;
+
   if (herkunftsOverlayId) {
     const h = document.getElementById(herkunftsOverlayId);
     if (h) h.classList.remove("active");
   }
+
   ordnerOverlay.classList.add("active");
 }
 
-function schliesseOverlay(overlay) { overlay.classList.remove("active"); }
+function schliesseOverlay(overlay) {
+  overlay.classList.remove("active");
+}
 
 function detailSchliessen() {
   ordnerOverlay.classList.remove("active");
@@ -467,13 +533,17 @@ function detailSchliessen() {
     herkunftsOverlayId = null;
   }
 }
+
 function schliesse(overlay) {
-  if (overlay === ordnerOverlay) { detailSchliessen(); return; }
+  if (overlay === ordnerOverlay) {
+    detailSchliessen();
+    return;
+  }
   schliesseOverlay(overlay);
   if (location.hash) adresseSetzen("");
 }
 
-/* ---------- fenster-buttons ---------- */
+/* Fenster-Buttons */
 document.querySelectorAll(".dot.red").forEach(dot => {
   dot.addEventListener("click", e => {
     e.stopPropagation();
@@ -489,7 +559,10 @@ document.querySelectorAll(".dot.yellow").forEach(dot => {
     const overlay = dot.closest(".overlay");
     if (!win || !overlay) return;
     win.classList.add("minimizing");
-    setTimeout(() => { schliesse(overlay); win.classList.remove("minimizing"); }, 260);
+    setTimeout(() => {
+      schliesse(overlay);
+      win.classList.remove("minimizing");
+    }, 260);
   });
 });
 
@@ -502,16 +575,17 @@ document.querySelectorAll(".dot.green").forEach(dot => {
 });
 
 document.querySelectorAll(".overlay").forEach(overlay => {
-  overlay.addEventListener("click", e => { if (e.target === overlay) schliesse(overlay); });
+  overlay.addEventListener("click", e => {
+    if (e.target === overlay) schliesse(overlay);
+  });
 });
 
 document.addEventListener("keydown", e => {
   if (e.key !== "Escape") return;
   document.querySelectorAll(".overlay.active").forEach(schliesse);
 });
-/* beim laden: adresse mit #werke etc. direkt öffnen */
+
 if (location.hash) ausHash();
 </script>
-
 </body>
 </html>
